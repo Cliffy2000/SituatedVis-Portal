@@ -1,0 +1,38 @@
+.container {
+    width: 100%;
+    min-height: 100%;
+    background: linear-gradient(180deg, #fafbff 0%, #bdbdbd 100%);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.article {
+    width: calc(max(900px, 60%));
+    min-height: 600px;
+    box-shadow: 4px 4px 4px #777777;
+    background-color: white;
+    z-index: 1;
+    position: relative;
+    margin: 50px 0px;
+}
+
+.articleContent {
+    margin: 40px;
+}
+
+.articleTitle {
+    font-weight: bold;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.articleText {
+    padding: 20px 0 30px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
