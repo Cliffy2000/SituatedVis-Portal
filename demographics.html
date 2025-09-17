@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Situated Visualization - Demographics</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="scripts/firebase-config.js"></script>
+    <link rel="stylesheet" href="styles/training.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="scripts/demographics.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="article">
+            <div class="articleContent">
+                <div class="articleHeader">
+                    <img src="logo-dog.svg" class="articleHeaderImage">
+                    <div class="articleHeaderText">Khoury Vis Lab</div>
+                </div>
+                
+                <div class="articleSection">
+                    <div><strong>Demographics</strong></div>
+                    <div>Please answer the following demographic questions. This section is not timed.</div>
+                </div>
+
+                <div class="articleSection">
+                    <div><strong>How old are you?</strong></div>
+                    <label class="checkbox-group">
+                        <input type="radio" name="age" value="under18">
+                        <span>Under 18</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="age" value="18-24">
+                        <span>18-24 years old</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="age" value="25-34">
+                        <span>25-34 years old</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="age" value="35-44">
+                        <span>35-44 years old</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="age" value="45-54">
+                        <span>45-54 years old</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="age" value="55-64">
+                        <span>55-64 years old</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="age" value="65+">
+                        <span>65+ years old</span>
+                    </label>
+                </div>
+
+                <div class="articleSection">
+                    <div><strong>How do you describe yourself?</strong></div>
+                    <label class="checkbox-group">
+                        <input type="radio" name="gender" value="male">
+                        <span>Male</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="gender" value="female">
+                        <span>Female</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="gender" value="non-binary">
+                        <span>Non-binary / third gender</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="gender" value="self-describe">
+                        <span>Prefer to self-describe</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="gender" value="prefer-not-say">
+                        <span>Prefer not to say</span>
+                    </label>
+                </div>
+
+                <div class="articleSection">
+                    <div><strong>Choose one or more races that you consider yourself to be</strong></div>
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="race" value="white">
+                        <span>White or Caucasian</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="race" value="black">
+                        <span>Black or African American</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="race" value="native-american">
+                        <span>American Indian/Native American or Alaska Native</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="race" value="asian">
+                        <span>Asian</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="race" value="pacific-islander">
+                        <span>Native Hawaiian or Other Pacific Islander</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="race" value="other">
+                        <span>Other</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="race" value="prefer-not-say">
+                        <span>Prefer not to say</span>
+                    </label>
+                </div>
+
+                <div class="articleSection">
+                    <div><strong>Are you of Spanish, Hispanic, or Latino origin?</strong></div>
+                    <label class="checkbox-group">
+                        <input type="radio" name="hispanic" value="yes">
+                        <span>Yes</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="hispanic" value="no">
+                        <span>No</span>
+                    </label>
+                </div>
+
+                <div class="articleSection">
+                    <div><strong>Do you have normal or corrected normal vision?</strong></div>
+                    <label class="checkbox-group">
+                        <input type="radio" name="vision" value="normal" onclick="document.getElementById('vision-description').style.display='none'">
+                        <span>Normal</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="vision" value="corrected" onclick="document.getElementById('vision-description').style.display='none'">
+                        <span>Corrected to normal</span>
+                    </label>
+                    <label class="checkbox-group">
+                        <input type="radio" name="vision" value="other" onclick="document.getElementById('vision-description').style.display='block'">
+                        <span>Other</span>
+                    </label>
+                    <div id="vision-description" style="display:none; margin-top:10px;">
+                        <div>Please describe your vision condition</div>
+                        <input type="text" style="width:100%; padding:5px; margin-top:5px;">
+                    </div>
+                </div>
+
+                <div class="articleSection">
+                    <div>Thank you for your time! Please click to the next screen to be directed back to Prolific.</div>
+                </div>
+
+                <button id="submitButton">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
