@@ -1,0 +1,122 @@
+.page-container {
+    width: 100dvw;
+    height: 100dvh;
+    box-sizing: border-box;
+}
+
+.header-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-top: 15px;
+    height: calc(100% - max(32%, 320px));
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-text {
+    text-align: center;
+    font-size: 72px;
+    font-weight: 600;
+    margin: 20px 0;
+    position: absolute;
+    left: calc(22% - 210px);
+}
+
+@media (max-width: 1200px) {
+    .header-text {
+        font-size: 64px;
+    }
+}
+
+@media (max-width: 960px) {
+    .header-text {
+        font-size: 60px;
+    }
+}
+
+.header-logo {
+    width: 27.5%;
+    max-height: 85%;
+    position: absolute;
+    right: calc(22% - 210px);
+}
+
+.options-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 32%;
+    width: 100%;
+    min-height: 320px;
+    box-sizing: border-box;
+    background-color: #333;
+}
+
+.options-row > div:first-child {
+    margin-left: calc(30% - 210px);
+}
+
+.options-row > div:last-child {
+    margin-right: calc(25% - 210px);
+}
+
+
+.display-options-panel {
+    display: grid;
+    row-gap: 10px;
+    width: 400px;
+    min-width: 400px;
+    height: 260px;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    grid-auto-rows: 25px;
+}
+
+@media (max-width: 960px) {
+    .display-options-panel {
+        width: 360px;
+        min-width: 360px;
+    }
+}
+
+.text-entry-container {
+    display: grid;
+    grid-template-columns: 7fr 10fr;
+    gap: 5px;
+    margin-top: 30px;
+    height: 25px;
+}
+
+
+.visualization-options-panel {
+    display: grid;
+    row-gap: 7px;
+    width: 400px;
+    min-width: 400px;
+    height: 380px;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    position: relative;
+    grid-auto-rows: 25px;
+}
+
+@media (max-width: 1440px) {
+    .dataset-panel, .visualization-options-panel {
+        width: 300px;
+        min-width: 300px;
+    }
+}
+
+.startTrialButton {
+    font-family: inherit;
+    font-size: 24px;
+    padding: 40px 60px;
+    letter-spacing: 0.5px;
+    border-radius: 10px;
+}
