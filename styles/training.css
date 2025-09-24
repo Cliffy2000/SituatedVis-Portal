@@ -83,7 +83,7 @@
 /* Checkbox container */
 .checkbox-group {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     margin: 10px 0;
     cursor: pointer;
@@ -170,4 +170,23 @@
 
 #submitButton:not(:disabled):hover {
     background-color: #45a049;
+}
+
+.designScreenshot {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.designScreenshot img {
+    width: 80%;
+    border-radius: 5px;
+    border: 2px solid #666;
+    padding: 5px;
+}
+
+.designRadioGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }

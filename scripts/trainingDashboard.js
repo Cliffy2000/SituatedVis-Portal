@@ -51,6 +51,8 @@ let isPaused = false;
 let questionShown = false;
 let INTERVAL_ID;
 let flag_running = true;
+let start;
+let stop;
 
 Promise.all(selectedFiles.map(file => d3.csv(`data/${file}`, d3.autoType))).then((datasets) => {
     const container = d3.select("#container");
@@ -98,6 +100,9 @@ Promise.all(selectedFiles.map(file => d3.csv(`data/${file}`, d3.autoType))).then
         clearInterval(INTERVAL_ID);
     }
 
+    start = startAnimation;
+    stop = stopAnimation;
+
     function animate() {
         step++;
         
@@ -139,7 +144,10 @@ Promise.all(selectedFiles.map(file => d3.csv(`data/${file}`, d3.autoType))).then
             input.type = QUESTION.type;
             input.name = QUESTION.id;
             input.value = option;
-            input.onclick = () => checkAnswer(option);
+            input.onclick = () => {
+                // Enable submit button when option selected
+                document.getElementById('submitButton').disabled = false;
+            };
             
             const span = document.createElement('span');
             span.textContent = option;
@@ -151,25 +159,55 @@ Promise.all(selectedFiles.map(file => d3.csv(`data/${file}`, d3.autoType))).then
         
         questionDiv.appendChild(optionsContainer);
         container.appendChild(questionDiv);
+        
+        // Set up submit button click handler
+        document.getElementById('submitButton').onclick = handleSubmit;
     }
+
 
     startAnimation();
 });
 
+
+function handleSubmit() {
+    const selectedOption = document.querySelector(`input[name="${QUESTION.id}"]:checked`);
+    if (!selectedOption) return;
+    
+    checkAnswer(selectedOption.value);
+}
+
 function checkAnswer(answer) {
-    const nextButton = document.getElementById('nextButton');
+    const submitButton = document.getElementById('submitButton');
+    const buttonAnnotation = document.getElementById('buttonAnnotation');
+    const allInputs = document.querySelectorAll(`input[name="${QUESTION.id}"]`);
+    allInputs.forEach(input => {
+        input.disabled = true;
+    });
     
     if (answer === QUESTION.correctAnswer) {
-        // Correct - enable green continue button
-        nextButton.disabled = false;
-        nextButton.textContent = 'Continue';
-        nextButton.style.backgroundColor = '#4CAF50';
-        nextButton.style.color = 'white';
+        // Correct
+        buttonAnnotation.textContent = 'You are correct';
+        submitButton.textContent = 'Next';
+        submitButton.onclick = () => {
+            window.location.href='demographics.html'
+        };
     } else {
-        // Incorrect - show red incorrect button, stays disabled and red
-        nextButton.disabled = true;
-        nextButton.textContent = 'Incorrect';
-        nextButton.style.backgroundColor = '#ffcccc';
-        nextButton.style.color = '#cc0000';
+        // Incorrect
+        buttonAnnotation.textContent = 'You are incorrect';
+        submitButton.textContent = 'Retry';
+        submitButton.onclick = () => {
+            stop();
+            
+            // Clear the current question
+            document.getElementById('questionContainer').innerHTML = '';
+            // Clear button annotation and reset button
+            buttonAnnotation.textContent = '';
+            submitButton.textContent = 'Submit';
+            submitButton.disabled = true;
+            questionShown = false;
+            
+            step = 0;
+            start();
+        };
     }
 }
