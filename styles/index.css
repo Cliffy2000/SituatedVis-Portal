@@ -10,7 +10,7 @@
     align-items: center;
     position: relative;
     padding-top: 15px;
-    height: calc(100% - max(32%, 320px));
+    height: calc(100% - 180px);
     width: 100%;
     box-sizing: border-box;
 }
@@ -46,22 +46,12 @@
 .options-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 32%;
+    justify-content: center;
+    height: 180px;
     width: 100%;
-    min-height: 320px;
     box-sizing: border-box;
     background-color: #333;
 }
-
-.options-row > div:first-child {
-    margin-left: calc(30% - 210px);
-}
-
-.options-row > div:last-child {
-    margin-right: calc(25% - 210px);
-}
-
 
 .display-options-panel {
     display: grid;
@@ -115,8 +105,9 @@
 
 .startTrialButton {
     font-family: inherit;
-    font-size: 24px;
-    padding: 40px 60px;
+    font-size: 32px;
+    padding: 30px 110px;
     letter-spacing: 0.5px;
     border-radius: 10px;
+    cursor: pointer;
 }
