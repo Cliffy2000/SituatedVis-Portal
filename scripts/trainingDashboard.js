@@ -189,7 +189,7 @@ function checkAnswer(answer) {
         buttonAnnotation.textContent = 'You are correct';
         submitButton.textContent = 'Next';
         submitButton.onclick = () => {
-            window.location.href='demographics.html'
+            window.location.href='https://cliffy2000.github.io/SituatedVis-Survey/'
         };
     } else {
         // Incorrect
