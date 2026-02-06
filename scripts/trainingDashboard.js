@@ -29,7 +29,7 @@ const QUESTION = {
     step: 21,
     type: "radio",
     options: ["Machine 1", "Machine 2", "Machine 3", "Machine 4", "Machine 5", "Machine 6", "Machine 7", "Machine 8", "Machine 9"],
-    correctAnswer: "Machine 3"
+    correctAnswer: "Machine 9"
 };
 
 // Fixed files - using actual data files
