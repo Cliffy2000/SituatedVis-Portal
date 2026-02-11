@@ -26,7 +26,7 @@ const LABEL_POSITION = "integrated";
 const QUESTION = {
     id: "training-q1",
     prompt: "Which machine has the highest output right now?",
-    step: 21,
+    step: 11,
     type: "radio",
     options: ["Machine 1", "Machine 2", "Machine 3", "Machine 4", "Machine 5", "Machine 6", "Machine 7", "Machine 8", "Machine 9"],
     correctAnswer: "Machine 9"
