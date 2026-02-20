@@ -1,213 +1,327 @@
-// training.js
-
-// Fixed config for this training page
-const ROWS = 3;
-const COLS = 3;
-const SETUP_LENGTH = 30;
-const MIN_SPACING = 10;
-const NO_QUESTIONS = [[45, 55]];
-const ANIM_DURATION = 400;
-const ANIM_DELAY = 200;
-const POINTS = 10;
-const ROLLING_AVG = 5;
-const SHOW_X_AXIS_TICKS = true;
-const X_AXIS_INVERSE_STATIC = false;
-const USE_THRESHOLD_COLORS = true;
-const SHOW_THRESHOLD_BAND = false;
-const BACKGROUND_ENCODING = false;
-const GRID_BACKGROUND_MOVE = false;
-const SHOW_VERTICAL_BAR = false;
-const USE_ROLLING_AVERAGE = false;
-const EASE_IN_OUT = true;
-const DYNAMIC_LABEL_SIZE = "none";
-const LABEL_POSITION = "integrated";
-
-// Fixed question
-const QUESTION = {
-    id: "training-q1",
-    prompt: "Which machine has the highest output right now?",
-    step: 11,
-    type: "radio",
-    options: ["Machine 1", "Machine 2", "Machine 3", "Machine 4", "Machine 5", "Machine 6", "Machine 7", "Machine 8", "Machine 9"],
-    correctAnswer: "Machine 9"
-};
-
-// Fixed files - using actual data files
-const selectedFiles = [
-    "Set1Machine1.csv",
-    "Set1Machine2.csv",
-    "Set1Machine3.csv",
-    "Set1Machine4.csv",
-    "Set1Machine5.csv",
-    "Set1Machine6.csv",
-    "Set1Machine7.csv",
-    "Set1Machine8.csv",
-    "Set1Machine9.csv"
+const TRAINING_ANSWERS = [
+    // Setup 0 (setup1)
+    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
+    // Setup 1 (setup2)
+    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
+    // Setup 2 (setup3)
+    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
+    // Setup 3 (setup4)
+    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
+    // Setup 4 (setup5)
+    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
+    // Setup 5 (setup6)
+    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
 ];
 
-let charts = [];
-let step = 1;
-let isPaused = false;
-let questionShown = false;
-let INTERVAL_ID;
-let flag_running = true;
-let start;
-let stop;
+// Questions definition (matches config.json)
+const ALL_QUESTIONS = [
+    {
+        id: "q1",
+        prompt: "Find the machine that has the highest output right now.",
+        type: "radio",
+        area: "machine",
+        options: ["Mach. 1","Mach. 2","Mach. 3","Mach. 4","Mach. 5","Mach. 6","Mach. 7","Mach. 8","Mach. 9","Mach. 10","Mach. 11","Mach. 12"]
+    },
+    {
+        id: "q2",
+        prompt: "Find the machine that has the lowest output right now.",
+        type: "radio",
+        area: "machine",
+        options: ["Mach. 1","Mach. 2","Mach. 3","Mach. 4","Mach. 5","Mach. 6","Mach. 7","Mach. 8","Mach. 9","Mach. 10","Mach. 11","Mach. 12"]
+    },
+    {
+        id: "q3",
+        prompt: "Find 3 machines that have an overall output increasing over time. There may be more, but please select only 3.",
+        type: "checkbox",
+        area: "machine",
+        options: ["Mach. 1","Mach. 2","Mach. 3","Mach. 4","Mach. 5","Mach. 6","Mach. 7","Mach. 8","Mach. 9","Mach. 10","Mach. 11","Mach. 12"]
+    },
+    {
+        id: "q4",
+        prompt: "Find 3 machines that have an overall output decreasing over time. There may be more, but please select only 3.",
+        type: "checkbox",
+        area: "machine",
+        options: ["Mach. 1","Mach. 2","Mach. 3","Mach. 4","Mach. 5","Mach. 6","Mach. 7","Mach. 8","Mach. 9","Mach. 10","Mach. 11","Mach. 12"]
+    },
+    {
+        id: "q5",
+        prompt: "Find 1 machine that is outside of the acceptable range right now.",
+        type: "radio",
+        area: "machine",
+        options: ["Mach. 1","Mach. 2","Mach. 3","Mach. 4","Mach. 5","Mach. 6","Mach. 7","Mach. 8","Mach. 9","Mach. 10","Mach. 11","Mach. 12"]
+    },
+    {
+        id: "q6",
+        prompt: "Find 3 machines that have been outside of the acceptable output range in the last 115 minutes, i.e. the entire visible time range. There may be more, but please select only 3.",
+        type: "checkbox",
+        area: "machine",
+        options: ["Mach. 1","Mach. 2","Mach. 3","Mach. 4","Mach. 5","Mach. 6","Mach. 7","Mach. 8","Mach. 9","Mach. 10","Mach. 11","Mach. 12"]
+    }
+];
 
-Promise.all(selectedFiles.map(file => d3.csv(`data/${file}`, d3.autoType))).then((datasets) => {
-    const container = d3.select("#container");
-    
-    const chartsContainer = container.select("#chartsContainer")
-        .style("grid-template-rows", `repeat(${ROWS}, 1fr)`)
-        .style("grid-template-columns", `repeat(${COLS}, 1fr)`);
+// Setup configurations matching config.json setups
+const SETUP_CONFIGS = [
+    { rows: 4, cols: 3, dynamicLabelSize: "none",    labelPosition: "integrated" },
+    { rows: 4, cols: 3, dynamicLabelSize: "none",    labelPosition: "side" },
+    { rows: 3, cols: 4, dynamicLabelSize: "linear",  labelPosition: "integrated" },
+    { rows: 3, cols: 4, dynamicLabelSize: "ushaped", labelPosition: "integrated" },
+    { rows: 4, cols: 3, dynamicLabelSize: "linear",  labelPosition: "side" },
+    { rows: 4, cols: 3, dynamicLabelSize: "ushaped", labelPosition: "side" },
+];
 
-    let { width: gridWidth, height: gridHeight } = chartsContainer.node().getBoundingClientRect();
-    let cellWidth = gridWidth / COLS;
-    let cellHeight = gridHeight / ROWS;
+// The current setup index is passed as a data attribute or inferred from the page filename
+function getSetupIndex() {
+    // Read from the page's script tag data attribute
+    const scripts = document.querySelectorAll('script[data-setup-index]');
+    if (scripts.length > 0) {
+        return parseInt(scripts[0].getAttribute('data-setup-index'));
+    }
+    // Fallback: parse from URL
+    const match = window.location.pathname.match(/trainingSetup(\d+)/);
+    if (match) return parseInt(match[1]) - 1;
+    return 0;
+}
 
-    const titles = Array.from({ length: selectedFiles.length }, (_, i) => `Machine ${i + 1}`);
-    
-    charts = chartsContainer.selectAll("div")
-        .data(d3.zip(datasets, titles))
-        .join("div")
-            .attr("class", LABEL_POSITION === "side" ? "chart-div-side" : "chart-div")
-        .append(([data, title]) => generateChart(
-            data = data, 
-            title = title, 
-            width = cellWidth, 
-            height = cellHeight,
-            viewRange = POINTS, 
-            rollingAverage = ROLLING_AVG,
-            showXAxisTicks = SHOW_X_AXIS_TICKS, 
-            useThresholdColors = USE_THRESHOLD_COLORS,
-            easeInOut = EASE_IN_OUT,
-            xAxisInverseStatic = X_AXIS_INVERSE_STATIC,
-            backgroundEncoding = BACKGROUND_ENCODING,
-            useRollingAverage = USE_ROLLING_AVERAGE,
-            gridBackgroundMove = GRID_BACKGROUND_MOVE,
-            showThresholdBand = SHOW_THRESHOLD_BAND,
-            showVerticalBar = SHOW_VERTICAL_BAR,
-            dynamicLabelSize = DYNAMIC_LABEL_SIZE,
-            labelPosition = LABEL_POSITION
-        ))
-        .nodes();
+// Convert answer int(s) to the expected option string(s)
+// All questions are now machine-based, so always use "Mach. N" format
+function answerToOptions(answer, question) {
+    if (Array.isArray(answer)) {
+        return answer.map(n => `Mach. ${n}`).sort();
+    }
+    return `Mach. ${answer}`;
+}
 
-    function startAnimation() {
-        INTERVAL_ID = setInterval(animate, ANIM_DURATION + ANIM_DELAY);
+(function() {
+    const setupIndex = getSetupIndex();
+    const qsetIndex = parseInt(sessionStorage.getItem('qsetIndex') || '0');
+    const setupConfig = SETUP_CONFIGS[setupIndex];
+
+    const ROWS = setupConfig.rows;
+    const COLS = setupConfig.cols;
+    const DYNAMIC_LABEL_SIZE = setupConfig.dynamicLabelSize;
+    const LABEL_POSITION = setupConfig.labelPosition;
+
+    // Shared config
+    const SETUP_LENGTH = 30;
+    const ANIM_DURATION = 400;
+    const ANIM_DELAY = 200;
+    const POINTS = 10;
+    const ROLLING_AVG = 5;
+    const SHOW_X_AXIS_TICKS = true;
+    const X_AXIS_INVERSE_STATIC = false;
+    const USE_THRESHOLD_COLORS = true;
+    const SHOW_THRESHOLD_BAND = true;
+    const BACKGROUND_ENCODING = false;
+    const GRID_BACKGROUND_MOVE = false;
+    const SHOW_VERTICAL_BAR = false;
+    const USE_ROLLING_AVERAGE = false;
+    const EASE_IN_OUT = true;
+
+    // Question for this user
+    const question = ALL_QUESTIONS[qsetIndex];
+    const correctAnswer = answerToOptions(TRAINING_ANSWERS[setupIndex][qsetIndex], question);
+
+    // Data files: use Set{setupIndex+1}Machine{1..12}.csv
+    const setNum = setupIndex + 1;
+    const NUM_MACHINES = ROWS * COLS;
+    const selectedFiles = Array.from({ length: NUM_MACHINES }, (_, i) => `Set${setNum}Machine${i + 1}.csv`);
+
+    // Question appears at this step
+    const QUESTION_STEP = 21;
+
+    // Next page after correct answer
+    function goToNextPage() {
+        if (setupIndex < 5) {
+            sessionStorage.setItem('trainingDesignIndex', String(setupIndex + 1));
+            window.location.href = 'trainingDescription.html';
+        } else {
+            window.location.href = 'https://cliffy2000.github.io/SituatedVis-Survey/';
+        }
     }
 
-    function stopAnimation() {
-        clearInterval(INTERVAL_ID);
-    }
+    let charts = [];
+    let step = 1;
+    let questionShown = false;
+    let INTERVAL_ID;
+    let startAnim, stopAnim;
 
-    start = startAnimation;
-    stop = stopAnimation;
+    Promise.all(selectedFiles.map(file => d3.csv(`data/${file}`, d3.autoType))).then((datasets) => {
+        const container = d3.select("#container");
 
-    function animate() {
-        step++;
-        
-        // Check if should show question
-        if (step === QUESTION.step && !questionShown) {
-            questionShown = true;
-            showQuestion();
+        const chartsContainer = container.select("#chartsContainer")
+            .style("grid-template-rows", `repeat(${ROWS}, 1fr)`)
+            .style("grid-template-columns", `repeat(${COLS}, 1fr)`);
+
+        let { width: gridWidth, height: gridHeight } = chartsContainer.node().getBoundingClientRect();
+        let cellWidth = gridWidth / COLS;
+        let cellHeight = gridHeight / ROWS;
+
+        const titles = Array.from({ length: NUM_MACHINES }, (_, i) => `Machine ${i + 1}`);
+
+        charts = chartsContainer.selectAll("div")
+            .data(d3.zip(datasets, titles))
+            .join("div")
+                .attr("class", LABEL_POSITION === "side" ? "chart-div-side" : "chart-div")
+            .append(([data, title]) => generateChart(
+                data, title, cellWidth, cellHeight,
+                POINTS, ROLLING_AVG,
+                SHOW_X_AXIS_TICKS, USE_THRESHOLD_COLORS, EASE_IN_OUT,
+                X_AXIS_INVERSE_STATIC, BACKGROUND_ENCODING, USE_ROLLING_AVERAGE,
+                GRID_BACKGROUND_MOVE, SHOW_THRESHOLD_BAND, SHOW_VERTICAL_BAR,
+                DYNAMIC_LABEL_SIZE, LABEL_POSITION
+            ))
+            .nodes();
+
+        function startAnimation() {
+            INTERVAL_ID = setInterval(animate, ANIM_DURATION + ANIM_DELAY);
         }
-        
-        for (let chart of charts) {
-            chart.update(step, ANIM_DURATION);
+
+        function stopAnimation() {
+            clearInterval(INTERVAL_ID);
         }
 
-        if (step + POINTS - 1 >= SETUP_LENGTH) {
-            stopAnimation();
-        }
-    }
+        startAnim = startAnimation;
+        stopAnim = stopAnimation;
 
-    function showQuestion() {
-        const container = document.getElementById('questionContainer');
-        container.innerHTML = '';
-        
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'question-item';
-        
-        const prompt = document.createElement('div');
-        prompt.className = 'question-prompt';
-        prompt.textContent = QUESTION.prompt;
-        questionDiv.appendChild(prompt);
-        
-        const optionsContainer = document.createElement('div');
-        optionsContainer.className = 'question-options-container';
-        
-        QUESTION.options.forEach(option => {
-            const label = document.createElement('label');
-            label.className = 'question-vertical-option';
-            
-            const input = document.createElement('input');
-            input.type = QUESTION.type;
-            input.name = QUESTION.id;
-            input.value = option;
-            input.onclick = () => {
-                // Enable submit button when option selected
-                document.getElementById('submitButton').disabled = false;
+        function animate() {
+            step++;
+
+            if (step === QUESTION_STEP && !questionShown) {
+                questionShown = true;
+                showQuestion();
+            }
+
+            for (let chart of charts) {
+                chart.update(step, ANIM_DURATION);
+            }
+
+            if (step + POINTS - 1 >= SETUP_LENGTH) {
+                stopAnimation();
+            }
+        }
+
+        function showQuestion() {
+            const qContainer = document.getElementById('questionContainer');
+            qContainer.innerHTML = '';
+
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-item';
+
+            const prompt = document.createElement('div');
+            prompt.className = 'question-prompt';
+            prompt.textContent = question.prompt;
+            questionDiv.appendChild(prompt);
+
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'question-options-container';
+
+            // Use grid layout for machine questions with many options
+            const useGrid = question.area === "machine" && question.options.length > 3;
+            if (useGrid) {
+                optionsContainer.style.display = 'grid';
+                optionsContainer.style.gridTemplateRows = `repeat(${ROWS}, 1fr)`;
+                optionsContainer.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
+                optionsContainer.style.gap = '5px';
+            }
+
+            const isCheckbox = question.type === 'checkbox';
+            const checkboxes = [];
+
+            question.options.forEach(option => {
+                const label = document.createElement('label');
+                label.className = useGrid ? 'question-grid-option' : 'question-vertical-option';
+
+                const input = document.createElement('input');
+                input.type = isCheckbox ? 'checkbox' : 'radio';
+                input.name = question.id;
+                input.value = option;
+
+                const span = document.createElement('span');
+                span.textContent = option;
+
+                label.appendChild(input);
+                label.appendChild(span);
+                optionsContainer.appendChild(label);
+
+                if (isCheckbox) checkboxes.push(input);
+            });
+
+            const submitButton = document.getElementById('submitButton');
+
+            if (isCheckbox) {
+                // For "find 3" questions: enable submit only when exactly 3 checked
+                optionsContainer.addEventListener('change', () => {
+                    const checkedCount = checkboxes.filter(cb => cb.checked).length;
+                    if (checkedCount === 3) {
+                        checkboxes.forEach(cb => { if (!cb.checked) cb.disabled = true; });
+                        submitButton.disabled = false;
+                    } else {
+                        checkboxes.forEach(cb => cb.disabled = false);
+                        submitButton.disabled = true;
+                    }
+                });
+            } else {
+                optionsContainer.addEventListener('change', () => {
+                    submitButton.disabled = false;
+                });
+            }
+
+            questionDiv.appendChild(optionsContainer);
+            qContainer.appendChild(questionDiv);
+
+            submitButton.onclick = function() {
+                let userAnswer;
+                if (isCheckbox) {
+                    userAnswer = Array.from(
+                        optionsContainer.querySelectorAll(`input[name="${question.id}"]:checked`)
+                    ).map(cb => cb.value).sort();
+                } else {
+                    const selected = optionsContainer.querySelector(`input[name="${question.id}"]:checked`);
+                    userAnswer = selected ? selected.value : null;
+                }
+                checkAnswer(userAnswer);
             };
-            
-            const span = document.createElement('span');
-            span.textContent = option;
-            
-            label.appendChild(input);
-            label.appendChild(span);
-            optionsContainer.appendChild(label);
-        });
-        
-        questionDiv.appendChild(optionsContainer);
-        container.appendChild(questionDiv);
-        
-        // Set up submit button click handler
-        document.getElementById('submitButton').onclick = handleSubmit;
-    }
+        }
 
+        function checkAnswer(userAnswer) {
+            const submitButton = document.getElementById('submitButton');
+            const buttonAnnotation = document.getElementById('buttonAnnotation');
+            const allInputs = document.querySelectorAll(`input[name="${question.id}"]`);
+            allInputs.forEach(input => input.disabled = true);
 
-    startAnimation();
-});
+            let isCorrect;
+            if (Array.isArray(correctAnswer)) {
+                isCorrect = Array.isArray(userAnswer)
+                    && userAnswer.length === correctAnswer.length
+                    && userAnswer.every((v, i) => v === correctAnswer[i]);
+            } else {
+                isCorrect = userAnswer === correctAnswer;
+            }
 
+            if (isCorrect) {
+                buttonAnnotation.textContent = 'Correct!';
+                submitButton.textContent = 'Next';
+                submitButton.disabled = false;
+                submitButton.onclick = () => {
+                    goToNextPage();
+                };
+            } else {
+                buttonAnnotation.textContent = 'Incorrect — please try again.';
+                submitButton.textContent = 'Retry';
+                submitButton.disabled = false;
+                submitButton.onclick = () => {
+                    stopAnim();
+                    document.getElementById('questionContainer').innerHTML = '';
+                    buttonAnnotation.textContent = '';
+                    submitButton.textContent = 'Submit';
+                    submitButton.disabled = true;
+                    questionShown = false;
+                    step = 0;
+                    startAnim();
+                };
+            }
+        }
 
-function handleSubmit() {
-    const selectedOption = document.querySelector(`input[name="${QUESTION.id}"]:checked`);
-    if (!selectedOption) return;
-    
-    checkAnswer(selectedOption.value);
-}
-
-function checkAnswer(answer) {
-    const submitButton = document.getElementById('submitButton');
-    const buttonAnnotation = document.getElementById('buttonAnnotation');
-    const allInputs = document.querySelectorAll(`input[name="${QUESTION.id}"]`);
-    allInputs.forEach(input => {
-        input.disabled = true;
+        startAnimation();
     });
-    
-    if (answer === QUESTION.correctAnswer) {
-        // Correct
-        buttonAnnotation.textContent = 'You are correct';
-        submitButton.textContent = 'Next';
-        submitButton.onclick = () => {
-            window.location.href='https://cliffy2000.github.io/SituatedVis-Survey/'
-        };
-    } else {
-        // Incorrect
-        buttonAnnotation.textContent = 'You are incorrect';
-        submitButton.textContent = 'Retry';
-        submitButton.onclick = () => {
-            stop();
-            
-            // Clear the current question
-            document.getElementById('questionContainer').innerHTML = '';
-            // Clear button annotation and reset button
-            buttonAnnotation.textContent = '';
-            submitButton.textContent = 'Submit';
-            submitButton.disabled = true;
-            questionShown = false;
-            
-            step = 0;
-            start();
-        };
-    }
-}
+})();

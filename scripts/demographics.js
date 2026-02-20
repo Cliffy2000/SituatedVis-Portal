@@ -46,10 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
     submitButton.addEventListener('click', function(e) {
         e.preventDefault();
         
-        // Structure data to match Firebase saveUserData format
         const demographicsData = {
             metadata: {
-                userName: sessionStorage.getItem('username') || 'Unknown',
+                prolificId: sessionStorage.getItem('username') || 'Unknown',
                 timestamp: new Date().toISOString(),
                 type: 'demographics'
             },
