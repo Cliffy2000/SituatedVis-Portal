@@ -1,4 +1,4 @@
-index,rand,facet,last,top5,bot5,thresholdGroup,peak,currentValue,slope,thresholdGroupCurrent
+index,value,facet,last,top5,bot5,thresholdGroup,peak,currentValue,slope,thresholdGroupCurrent
 1,47,Machine 8,0,0,0,3,0,67,0.1553487079744374,4
 2,72,Machine 8,0,0,0,4,0,67,0.1553487079744374,4
 3,74,Machine 8,0,0,0,4,0,67,0.1553487079744374,4
