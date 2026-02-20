@@ -1,16 +1,21 @@
 const TRAINING_ANSWERS = [
-    // Setup 0 (setup1)
-    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
-    // Setup 1 (setup2)
-    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
-    // Setup 2 (setup3)
-    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
-    // Setup 3 (setup4)
-    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
-    // Setup 4 (setup5)
-    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
-    // Setup 5 (setup6)
-    [1, 1, [1, 2, 3], [1, 2, 3], 1, [1, 2, 3]],
+    // q1
+    [1,       1,       1,       1,       1,       1      ],
+
+    // q2
+    [1,       1,       1,       1,       1,       1      ],
+
+    // q3
+    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],
+
+    // q4
+    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],
+
+    // q5
+    [1,       1,       1,       1,       1,       1      ],
+
+    // q6
+    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]], 
 ];
 
 // Questions definition (matches config.json)
@@ -102,9 +107,9 @@ function answerToOptions(answer, question) {
     const LABEL_POSITION = setupConfig.labelPosition;
 
     // Shared config
-    const SETUP_LENGTH = 30;
-    const ANIM_DURATION = 400;
-    const ANIM_DELAY = 200;
+    const SETUP_LENGTH = 60;
+    const ANIM_DURATION = 40;
+    const ANIM_DELAY = 20;
     const POINTS = 10;
     const ROLLING_AVG = 5;
     const SHOW_X_AXIS_TICKS = true;
@@ -119,7 +124,7 @@ function answerToOptions(answer, question) {
 
     // Question for this user
     const question = ALL_QUESTIONS[qsetIndex];
-    const correctAnswer = answerToOptions(TRAINING_ANSWERS[setupIndex][qsetIndex], question);
+    const correctAnswer = answerToOptions(TRAINING_ANSWERS[qsetIndex][setupIndex], question);
 
     // Data files: use Set{setupIndex+1}Machine{1..12}.csv
     const setNum = setupIndex + 1;
@@ -127,9 +132,9 @@ function answerToOptions(answer, question) {
     const selectedFiles = Array.from({ length: NUM_MACHINES }, (_, i) => `Set${setNum}Machine${i + 1}.csv`);
 
     // Question appears at this step
-    const QUESTION_STEP = 21;
+    const QUESTION_STEP = 45;
 
-    // Next page after correct answer
+    // Next page: go through description page for designs 2-6, or to survey after design 6
     function goToNextPage() {
         if (setupIndex < 5) {
             sessionStorage.setItem('trainingDesignIndex', String(setupIndex + 1));
