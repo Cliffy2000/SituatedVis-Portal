@@ -92,7 +92,7 @@ function answerToValidSet(answer) {
     const LABEL_POSITION = setupConfig.labelPosition;
 
     // Shared config
-    const SETUP_LENGTH = 30;
+    const SETUP_LENGTH = 60;
     const ANIM_DURATION = 400;
     const ANIM_DELAY = 200;
     const POINTS = 10;
@@ -117,7 +117,7 @@ function answerToValidSet(answer) {
     const selectedFiles = Array.from({ length: NUM_MACHINES }, (_, i) => `Set${setNum}Machine${i + 1}.csv`);
 
     // Question appears at this step
-    const QUESTION_STEP = 21;
+    const QUESTION_STEP = 40;
 
     // Next page: go through description page for designs 2-6, or to survey after design 6
     function goToNextPage() {
