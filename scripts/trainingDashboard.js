@@ -1,21 +1,10 @@
 const TRAINING_ANSWERS = [
-    // q1
-    [1,       1,       1,       1,       1,       1      ],
-
-    // q2
-    [1,       1,       1,       1,       1,       1      ],
-
-    // q3
-    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],
-
-    // q4
-    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],
-
-    // q5
-    [1,       1,       1,       1,       1,       1      ],
-
-    // q6
-    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]], 
+    [[4],     [6],     [7],     [12],    [2],     [7]    ],  // q1
+    [[8],     [3],     [1],     [4],     [12],    [12]   ],  // q2
+    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]], // q3
+    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]], // q4
+    [[1],     [1],     [1],     [1],     [1],     [1]    ],  // q5
+    [[1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3], [1,2,3]], // q6
 ];
 
 // Questions definition (matches config.json)
@@ -57,7 +46,7 @@ const ALL_QUESTIONS = [
     },
     {
         id: "q6",
-        prompt: "Find 3 machines that have been outside of the acceptable output range in the last 115 minutes, i.e. the entire visible time range. There may be more, but please select only 3.",
+        prompt: "Find 3 machines that have been outside of the acceptable output range in the last 15 minutes, i.e. the entire visible time range. There may be more, but please select only 3.",
         type: "checkbox",
         area: "machine",
         options: ["Mach. 1","Mach. 2","Mach. 3","Mach. 4","Mach. 5","Mach. 6","Mach. 7","Mach. 8","Mach. 9","Mach. 10","Mach. 11","Mach. 12"]
@@ -87,13 +76,9 @@ function getSetupIndex() {
     return 0;
 }
 
-// Convert answer int(s) to the expected option string(s)
-// All questions are now machine-based, so always use "Mach. N" format
-function answerToOptions(answer, question) {
-    if (Array.isArray(answer)) {
-        return answer.map(n => `Mach. ${n}`).sort();
-    }
-    return `Mach. ${answer}`;
+// Convert answer array to set of valid option strings
+function answerToValidSet(answer) {
+    return answer.map(n => `Mach. ${n}`);
 }
 
 (function() {
@@ -107,9 +92,9 @@ function answerToOptions(answer, question) {
     const LABEL_POSITION = setupConfig.labelPosition;
 
     // Shared config
-    const SETUP_LENGTH = 60;
-    const ANIM_DURATION = 40;
-    const ANIM_DELAY = 20;
+    const SETUP_LENGTH = 30;
+    const ANIM_DURATION = 400;
+    const ANIM_DELAY = 200;
     const POINTS = 10;
     const ROLLING_AVG = 5;
     const SHOW_X_AXIS_TICKS = true;
@@ -124,7 +109,7 @@ function answerToOptions(answer, question) {
 
     // Question for this user
     const question = ALL_QUESTIONS[qsetIndex];
-    const correctAnswer = answerToOptions(TRAINING_ANSWERS[qsetIndex][setupIndex], question);
+    const validAnswers = answerToValidSet(TRAINING_ANSWERS[qsetIndex][setupIndex]);
 
     // Data files: use Set{setupIndex+1}Machine{1..12}.csv
     const setNum = setupIndex + 1;
@@ -132,7 +117,7 @@ function answerToOptions(answer, question) {
     const selectedFiles = Array.from({ length: NUM_MACHINES }, (_, i) => `Set${setNum}Machine${i + 1}.csv`);
 
     // Question appears at this step
-    const QUESTION_STEP = 45;
+    const QUESTION_STEP = 21;
 
     // Next page: go through description page for designs 2-6, or to survey after design 6
     function goToNextPage() {
@@ -295,12 +280,10 @@ function answerToOptions(answer, question) {
             allInputs.forEach(input => input.disabled = true);
 
             let isCorrect;
-            if (Array.isArray(correctAnswer)) {
-                isCorrect = Array.isArray(userAnswer)
-                    && userAnswer.length === correctAnswer.length
-                    && userAnswer.every((v, i) => v === correctAnswer[i]);
+            if (Array.isArray(userAnswer)) {
+                isCorrect = userAnswer.length > 0 && userAnswer.every(v => validAnswers.includes(v));
             } else {
-                isCorrect = userAnswer === correctAnswer;
+                isCorrect = validAnswers.includes(userAnswer);
             }
 
             if (isCorrect) {
