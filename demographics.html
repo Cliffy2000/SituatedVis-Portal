@@ -12,6 +12,7 @@
     <script src="scripts/firebase-config.js"></script>
     <link rel="stylesheet" href="styles/training.css">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/demographics.css">
     <script src="scripts/demographics.js" type="text/javascript" defer></script>
 </head>
 
@@ -25,164 +26,150 @@
                 </div>
                 
                 <div class="articleSection">
-                    <div><strong>Demographics</strong></div>
-                    <div>Please answer the following demographic questions. This section is not timed.</div>
+                    <div><strong>Feedback</strong></div>
+                    <div>Please answer the following questions about your experience. This section is not timed.</div>
                 </div>
 
                 <div class="articleSection">
-                    <div><strong>How easy was responding to tasks involving graphs with the following design</strong></div>
                     <div class="designScreenshot">
-                        <img src="design1.jpg">
+                        <img src="">
                     </div>
+                </div>
+
+                <div class="articleSection">
+                    <div>How easy was responding to: "Find the machine that has the <b>highest</b> output right now" <span class="required-star">*</span></div>
                     <div class="designRadioGroup">
-                        <label class="checkbox-group">
-                            <input type="radio" name="design1" value="easy">
-                            <span>Easy</span>
-                        </label>
-                        <label class="checkbox-group">
-                            <input type="radio" name="gender" value="somewhat-easy">
-                            <span>Somewhat easy</span>
-                        </label>
-                        <label class="checkbox-group">
-                            <input type="radio" name="gender" value="neither-easy-nor-difficult">
-                            <span>Neither easy nor difficult</span>
-                        </label>
-                        <label class="checkbox-group">
-                            <input type="radio" name="gender" value="somewhat-difficult">
-                            <span>Somewhat difficult</span>
-                        </label>
-                        <label class="checkbox-group">
-                            <input type="radio" name="gender" value="difficult">
-                            <span>Difficult</span>
-                        </label>
+                        <label class="checkbox-group"><input type="radio" name="task-q1" value="easy"><span>Easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q1" value="somewhat-easy"><span>Somewhat easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q1" value="neither"><span>Neither easy nor difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q1" value="somewhat-difficult"><span>Somewhat difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q1" value="difficult"><span>Difficult</span></label>
                     </div>
                 </div>
 
                 <div class="articleSection">
-                    <div><strong>How old are you?</strong></div>
-                    <label class="checkbox-group">
-                        <input type="radio" name="age" value="under18">
-                        <span>Under 18</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="age" value="18-24">
-                        <span>18-24 years old</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="age" value="25-34">
-                        <span>25-34 years old</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="age" value="35-44">
-                        <span>35-44 years old</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="age" value="45-54">
-                        <span>45-54 years old</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="age" value="55-64">
-                        <span>55-64 years old</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="age" value="65+">
-                        <span>65+ years old</span>
-                    </label>
+                    <div>How easy was responding to: "Find the machine that has the <b>lowest</b> output right now" <span class="required-star">*</span></div>
+                    <div class="designRadioGroup">
+                        <label class="checkbox-group"><input type="radio" name="task-q2" value="easy"><span>Easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q2" value="somewhat-easy"><span>Somewhat easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q2" value="neither"><span>Neither easy nor difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q2" value="somewhat-difficult"><span>Somewhat difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q2" value="difficult"><span>Difficult</span></label>
+                    </div>
                 </div>
 
                 <div class="articleSection">
-                    <div><strong>How do you describe yourself?</strong></div>
-                    <label class="checkbox-group">
-                        <input type="radio" name="gender" value="male">
-                        <span>Male</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="gender" value="female">
-                        <span>Female</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="gender" value="non-binary">
-                        <span>Non-binary / third gender</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="gender" value="self-describe">
-                        <span>Prefer to self-describe</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="gender" value="prefer-not-say">
-                        <span>Prefer not to say</span>
-                    </label>
+                    <div>How easy was responding to: "Find 1 machine that has a visible output <b>increasing</b> over time" <span class="required-star">*</span></div>
+                    <div class="designRadioGroup">
+                        <label class="checkbox-group"><input type="radio" name="task-q3" value="easy"><span>Easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q3" value="somewhat-easy"><span>Somewhat easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q3" value="neither"><span>Neither easy nor difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q3" value="somewhat-difficult"><span>Somewhat difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q3" value="difficult"><span>Difficult</span></label>
+                    </div>
                 </div>
 
                 <div class="articleSection">
-                    <div><strong>Choose one or more races that you consider yourself to be</strong></div>
-                    <label class="checkbox-group">
-                        <input type="checkbox" name="race" value="white">
-                        <span>White or Caucasian</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="checkbox" name="race" value="black">
-                        <span>Black or African American</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="checkbox" name="race" value="native-american">
-                        <span>American Indian/Native American or Alaska Native</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="checkbox" name="race" value="asian">
-                        <span>Asian</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="checkbox" name="race" value="pacific-islander">
-                        <span>Native Hawaiian or Other Pacific Islander</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="checkbox" name="race" value="other">
-                        <span>Other</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="checkbox" name="race" value="prefer-not-say">
-                        <span>Prefer not to say</span>
-                    </label>
+                    <div>How easy was responding to: "Find 1 machine that has a visible output <b>decreasing</b> over time" <span class="required-star">*</span></div>
+                    <div class="designRadioGroup">
+                        <label class="checkbox-group"><input type="radio" name="task-q4" value="easy"><span>Easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q4" value="somewhat-easy"><span>Somewhat easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q4" value="neither"><span>Neither easy nor difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q4" value="somewhat-difficult"><span>Somewhat difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q4" value="difficult"><span>Difficult</span></label>
+                    </div>
                 </div>
 
                 <div class="articleSection">
-                    <div><strong>Are you of Spanish, Hispanic, or Latino origin?</strong></div>
-                    <label class="checkbox-group">
-                        <input type="radio" name="hispanic" value="yes">
-                        <span>Yes</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="hispanic" value="no">
-                        <span>No</span>
-                    </label>
+                    <div>How easy was responding to: "Find 1 machine that is outside of the acceptable range right now" <span class="required-star">*</span></div>
+                    <div class="designRadioGroup">
+                        <label class="checkbox-group"><input type="radio" name="task-q5" value="easy"><span>Easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q5" value="somewhat-easy"><span>Somewhat easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q5" value="neither"><span>Neither easy nor difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q5" value="somewhat-difficult"><span>Somewhat difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q5" value="difficult"><span>Difficult</span></label>
+                    </div>
                 </div>
 
                 <div class="articleSection">
-                    <div><strong>Do you have normal or corrected normal vision?</strong></div>
-                    <label class="checkbox-group">
-                        <input type="radio" name="vision" value="normal" onclick="document.getElementById('vision-description').style.display='none'">
-                        <span>Normal</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="vision" value="corrected" onclick="document.getElementById('vision-description').style.display='none'">
-                        <span>Corrected to normal</span>
-                    </label>
-                    <label class="checkbox-group">
-                        <input type="radio" name="vision" value="other" onclick="document.getElementById('vision-description').style.display='block'">
-                        <span>Other</span>
-                    </label>
-                    <div id="vision-description" style="display:none; margin-top:10px;">
+                    <div>How easy was responding to: "Find 1 machine that has been outside of the acceptable range in the visible time range" <span class="required-star">*</span></div>
+                    <div class="designRadioGroup">
+                        <label class="checkbox-group"><input type="radio" name="task-q6" value="easy"><span>Easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q6" value="somewhat-easy"><span>Somewhat easy</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q6" value="neither"><span>Neither easy nor difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q6" value="somewhat-difficult"><span>Somewhat difficult</span></label>
+                        <label class="checkbox-group"><input type="radio" name="task-q6" value="difficult"><span>Difficult</span></label>
+                    </div>
+                </div>
+
+                <div class="articleSection">
+                    <div>Please compare the types of questions you answered. Which tasks were easiest to complete? Which tasks were the hardest? Why were they easier or harder? <span class="required-star">*</span></div>
+                    <textarea id="task-comparison" rows="5"></textarea>
+                </div>
+
+                <div class="articleSection">
+                    <div><strong>Demographics</strong></div>
+                    <div>Please answer the following demographic questions.</div>
+                </div>
+
+                <div class="articleSection">
+                    <div>How old are you? <span class="required-star">*</span></div>
+                    <label class="checkbox-group"><input type="radio" name="age" value="under18"><span>Under 18</span></label>
+                    <label class="checkbox-group"><input type="radio" name="age" value="18-24"><span>18-24 years old</span></label>
+                    <label class="checkbox-group"><input type="radio" name="age" value="25-34"><span>25-34 years old</span></label>
+                    <label class="checkbox-group"><input type="radio" name="age" value="35-44"><span>35-44 years old</span></label>
+                    <label class="checkbox-group"><input type="radio" name="age" value="45-54"><span>45-54 years old</span></label>
+                    <label class="checkbox-group"><input type="radio" name="age" value="55-64"><span>55-64 years old</span></label>
+                    <label class="checkbox-group"><input type="radio" name="age" value="65+"><span>65+ years old</span></label>
+                </div>
+
+                <div class="articleSection">
+                    <div>How do you describe yourself? <span class="required-star">*</span></div>
+                    <label class="checkbox-group"><input type="radio" name="gender" value="male"><span>Male</span></label>
+                    <label class="checkbox-group"><input type="radio" name="gender" value="female"><span>Female</span></label>
+                    <label class="checkbox-group"><input type="radio" name="gender" value="non-binary"><span>Non-binary / third gender</span></label>
+                    <label class="checkbox-group"><input type="radio" name="gender" value="self-describe"><span>Prefer to self-describe</span></label>
+                    <label class="checkbox-group"><input type="radio" name="gender" value="prefer-not-say"><span>Prefer not to say</span></label>
+                </div>
+
+                <div class="articleSection">
+                    <div>Choose one or more races that you consider yourself to be <span class="required-star">*</span></div>
+                    <label class="checkbox-group"><input type="checkbox" name="race" value="white"><span>White or Caucasian</span></label>
+                    <label class="checkbox-group"><input type="checkbox" name="race" value="black"><span>Black or African American</span></label>
+                    <label class="checkbox-group"><input type="checkbox" name="race" value="native-american"><span>American Indian/Native American or Alaska Native</span></label>
+                    <label class="checkbox-group"><input type="checkbox" name="race" value="asian"><span>Asian</span></label>
+                    <label class="checkbox-group"><input type="checkbox" name="race" value="pacific-islander"><span>Native Hawaiian or Other Pacific Islander</span></label>
+                    <label class="checkbox-group"><input type="checkbox" name="race" value="other"><span>Other</span></label>
+                    <label class="checkbox-group"><input type="checkbox" name="race" value="prefer-not-say"><span>Prefer not to say</span></label>
+                </div>
+
+                <div class="articleSection">
+                    <div>Are you of Spanish, Hispanic, or Latino origin? <span class="required-star">*</span></div>
+                    <label class="checkbox-group"><input type="radio" name="hispanic" value="yes"><span>Yes</span></label>
+                    <label class="checkbox-group"><input type="radio" name="hispanic" value="no"><span>No</span></label>
+                </div>
+
+                <div class="articleSection">
+                    <div>Do you have normal or corrected normal vision? <span class="required-star">*</span></div>
+                    <label class="checkbox-group"><input type="radio" name="vision" value="normal" onclick="document.getElementById('vision-description').style.display='none'"><span>Normal</span></label>
+                    <label class="checkbox-group"><input type="radio" name="vision" value="corrected" onclick="document.getElementById('vision-description').style.display='none'"><span>Corrected to normal</span></label>
+                    <label class="checkbox-group"><input type="radio" name="vision" value="other" onclick="document.getElementById('vision-description').style.display='block'"><span>Other</span></label>
+                    <div id="vision-description">
                         <div>Please describe your vision condition</div>
-                        <input type="text" style="width:100%; padding:5px; margin-top:5px;">
+                        <input type="text">
                     </div>
+                </div>
+
+                <div class="articleSection">
+                    <div>Do you have any additional feedback on completing the tasks with the graph?</div>
+                    <textarea id="additional-feedback" rows="4"></textarea>
                 </div>
 
                 <div class="articleSection">
                     <div>Thank you for your time! Please click to the next screen to be directed back to Prolific.</div>
                 </div>
 
-                <button id="submitButton">
+                <button id="submitButton" disabled>
                     Submit
                 </button>
             </div>

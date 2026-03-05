@@ -1,29 +1,31 @@
-
 <!DOCTYPE html>
 
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>Situated Visualization - Training (Design 3 of 6)</title>
+    <title>Situated Visualization - Training (Question 3 of 6)</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
 
     <script src="d3/d3.js" type="text/javascript" defer></script>
     <script src="scripts/visualization.js" type="text/javascript" defer></script>
-    <script src="scripts/trainingDashboard.js" type="text/javascript" defer data-setup-index="2"></script>
+    <script src="scripts/trainingDashboard.js" type="text/javascript" defer data-page-index="2"></script>
 </head>
 
 <body>
     <div id="container">
         <div id="chartsContainer"></div>
         <div id="sidePanel">
-            <h3>Training Question (Design 3 of 6)</h3>
+            <h3>Training Question (Question 3 of 6)</h3>
             <div id="questionContainer"></div>
             <div id="buttonContainer">
                 <div id="buttonAnnotation"></div>
-                <button id="submitButton" class="continue-button" disabled>Submit</button>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button id="submitButton" class="continue-button" disabled>Submit</button>
+                    <span id="questionTimer" style="font-size:16px; font-weight:bold;"></span>
+                </div>
             </div>
         </div>
     </div>

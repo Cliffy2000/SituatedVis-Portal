@@ -1,50 +1,80 @@
-document.addEventListener('DOMContentLoaded', function() {
+const QUESTION_MAPPING = [
+    [0, 1, 2, 3, 4, 5],
+    [1, 2, 3, 4, 5, 0],
+    [2, 3, 4, 5, 0, 1],
+    [3, 4, 5, 0, 1, 2],
+    [4, 5, 0, 1, 2, 3],
+    [5, 0, 1, 2, 3, 4],
+];
+
+const TEST_IDS = {};
+for (let d = 0; d < 6; d++) {
+    for (let m = 0; m < 6; m++) {
+        TEST_IDS[`secretcode-d${d + 1}m${m + 1}`] = { design: d, mapping: m };
+    }
+}
+
+async function getAssignment(id) {
+    if (TEST_IDS[id]) return TEST_IDS[id];
+
+    const userRef = db.collection('config').doc('assignments').collection('users').doc(id);
+    const doc = await userRef.get();
+    if (doc.exists) return doc.data();
+
+    const counterRef = db.collection('config').doc('assignmentCounter');
+    const combo = await db.runTransaction(async (tx) => {
+        const snap = await tx.get(counterRef);
+        const val = snap.exists ? snap.data().value : 0;
+        tx.set(counterRef, { value: val + 1 });
+        return val % 36;
+    });
+
+    const result = {
+        design: Math.floor(combo / 6),
+        mapping: combo % 6,
+        combo: combo,
+        timestamp: new Date().toISOString()
+    };
+
+    await userRef.set(result);
+    return result;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('.page1-checkbox');
-    const prolificInput = document.getElementById('prolific-id');
-    const continueBtn = document.getElementById('continueToPage2');
+    const input = document.getElementById('prolific-id');
+    const btn = document.getElementById('continueToPage2');
 
-    // Restore if already entered
-    const existing = sessionStorage.getItem('username');
-    if (existing) {
-        prolificInput.value = existing;
-    }
+    const saved = sessionStorage.getItem('username');
+    if (saved) input.value = saved;
 
-    function checkConditions() {
+    function validate() {
         const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-        const idFilled = prolificInput.value.trim().length > 0;
-        continueBtn.disabled = !(allChecked && idFilled);
+        btn.disabled = !(allChecked && input.value.trim());
     }
 
-    checkboxes.forEach(cb => cb.addEventListener('change', checkConditions));
-    prolificInput.addEventListener('input', checkConditions);
-    checkConditions();
+    checkboxes.forEach(cb => cb.addEventListener('change', validate));
+    input.addEventListener('input', validate);
+    validate();
 
-    continueBtn.addEventListener('click', function() {
-        const prolificId = prolificInput.value.trim();
+    btn.addEventListener('click', async function () {
+        const id = input.value.trim();
+        btn.disabled = true;
+        btn.textContent = 'Loading...';
 
-        // Save Prolific ID
-        sessionStorage.setItem('username', prolificId);
-
-        // Compute question index from hex ID mod 6
-        // Use BigInt to avoid overflow on long hex strings
-        let idNum;
         try {
-            idNum = BigInt('0x' + prolificId.replace(/[^0-9a-fA-F]/g, ''));
+            const assignment = await getAssignment(id);
+
+            sessionStorage.setItem('username', id);
+            sessionStorage.setItem('designIndex', String(assignment.design));
+            sessionStorage.setItem('questionMapping', JSON.stringify(QUESTION_MAPPING[assignment.mapping]));
+
+            window.location.href = 'training2.html';
         } catch (e) {
-            // Fallback: hash the string to a number
-            let hash = 0;
-            for (let i = 0; i < prolificId.length; i++) {
-                hash = ((hash << 5) - hash) + prolificId.charCodeAt(i);
-                hash = hash & hash; // Convert to 32bit int
-            }
-            idNum = BigInt(Math.abs(hash));
+            console.error('Assignment failed:', e);
+            btn.disabled = false;
+            btn.textContent = 'Continue to Next Page';
+            alert('Failed to connect to database. Please try again.');
         }
-        const qsetIndex = Number(idNum % 6n);
-
-        sessionStorage.setItem('qsetIndex', String(qsetIndex));
-        sessionStorage.setItem('page1Confirmed', 'true');
-
-        console.log(`Prolific ID: ${prolificId}, qsetIndex: ${qsetIndex}`);
-        window.location.href = 'training2.html';
     });
 });

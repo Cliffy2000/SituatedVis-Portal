@@ -16,12 +16,31 @@ body {
     display: grid;
 }
 
+.chart-div,
+.chart-div-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .chart-div {
     background-color: white;
 }
 
 .chart-div-side {
     outline: 0.2px solid #cfcfcf;
+}
+
+.chart-wrapper {
+    height: 100%;
+}
+
+.chart-wrapper-integrated {
+    width: 85%;
+}
+
+.chart-wrapper-side {
+    width: 100%;
 }
 
 svg {
@@ -47,6 +66,12 @@ svg {
     padding-right: 25px;
 }
 
+#questionTimer {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
 /* Question container styles */
 .question-item {
     margin-bottom: 20px;
@@ -57,19 +82,17 @@ svg {
 }
 
 .question-prompt {
-    font-weight: 600;
+    font-weight: 400;
     margin: 5px;
     margin-bottom: 10px;
     font-size: 16px;
     color: #333;
 }
 
-/* Options container */
 .question-options-container {
     margin-bottom: 15px;
 }
 
-/* Vertical layout for options */
 .question-vertical-option {
     display: block;
     margin-bottom: 8px;
@@ -80,7 +103,40 @@ svg {
     margin-right: 8px;
 }
 
-/* Submit button */
+.question-grid-option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 2px;
+    padding-left: 15%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.question-grid-option:hover {
+    background-color: #e8e8e8;
+}
+
+.question-grid-option input {
+    margin-right: 5px;
+}
+
+.question-grid-option span {
+    font-size: 13px;
+}
+
+.question-grid-option input:disabled,
+.question-vertical-option input:disabled {
+    cursor: not-allowed;
+}
+
+.question-grid-option input:disabled + span,
+.question-vertical-option input:disabled + span {
+    opacity: 0.5;
+}
+
 .continue-button {
     padding: 15px 30px;
     font-size: 16px;

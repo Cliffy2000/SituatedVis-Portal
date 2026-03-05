@@ -1,0 +1,50 @@
+.articleSection {
+    padding: 0 30px;
+    margin-bottom: 20px;
+}
+
+.designScreenshot img {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+}
+
+.articleSection textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    font-family: inherit;
+    font-size: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.required-star {
+    color: red;
+}
+
+#submitButton {
+    margin-top: 10px;
+}
+
+#submitButton:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}
+
+#submitButton:enabled {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#vision-description {
+    display: none;
+    margin-top: 10px;
+}
+
+#vision-description input {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
