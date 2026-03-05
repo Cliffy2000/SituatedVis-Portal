@@ -400,9 +400,9 @@ function generateChart(
 		}
 
 		if (n > MAX_THRESHOLD) {
-			return "#FF7F50";
+			return "#9D5DD5";
 		} else if (n < MIN_THRESHOLD) {
-			return "#00B2EE";
+			return "#5DD5BF";
 		} else {
 			return "#8C8C8C";
 		}
