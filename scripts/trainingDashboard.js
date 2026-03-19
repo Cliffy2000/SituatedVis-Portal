@@ -1,31 +1,204 @@
-// TRAINING_ANSWERS[design 0-5][question 0-5] — valid machine numbers
 const TRAINING_ANSWERS = [
-    [[1], [1], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],  // design 1
-    [[1], [1], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],  // design 2
-    [[1], [1], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],  // design 3
-    [[1], [1], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],  // design 4
-    [[1], [1], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],  // design 5
-    [[1], [1], [1,2,3], [1,2,3], [1,2,3], [1,2,3]],  // design 6
+    ["Mach. 1"], 
+    ["Mach. 1"], 
+    ["Mach. 1", "Mach. 2", "Mach. 3"], 
+    ["Mach. 1", "Mach. 2", "Mach. 3"], 
+    ["Mach. 1", "Mach. 2", "Mach. 3"], 
+    ["Mach. 1", "Mach. 2", "Mach. 3"]
 ];
-
-const ALL_QUESTIONS = [
-    { id: "q1", prompt: "Find the machine that has the <b>highest</b> output right now." },
-    { id: "q2", prompt: "Find the machine that has the <b>lowest</b> output right now." },
-    { id: "q3", prompt: "Find 1 machine that has a visible output <b>increasing</b> over time at the beginning of the question. There may be more, but please select only 1." },
-    { id: "q4", prompt: "Find 1 machine that has a visible output <b>decreasing</b> over time at the beginning of the question. There may be more, but please select only 1." },
-    { id: "q5", prompt: "Find 1 machine that is outside of the acceptable range right now." },
-    { id: "q6", prompt: "Find 1 machine that has been outside of the acceptable range in the visible time range at the beginning of the question. There may be more, but please select only 1." },
-];
-
-const MACHINE_OPTIONS = ["Mach. 1","Mach. 2","Mach. 3","Mach. 4","Mach. 5","Mach. 6","Mach. 7","Mach. 8","Mach. 9","Mach. 10","Mach. 11","Mach. 12"];
 
 const DESIGN_CONFIGS = [
-    { rows: 4, cols: 3, dynamicLabelSize: "none",    labelPosition: "integrated" },
-    { rows: 4, cols: 3, dynamicLabelSize: "none",    labelPosition: "side" },
-    { rows: 3, cols: 4, dynamicLabelSize: "linear",  labelPosition: "integrated" },
-    { rows: 3, cols: 4, dynamicLabelSize: "ushaped", labelPosition: "integrated" },
-    { rows: 4, cols: 3, dynamicLabelSize: "linear",  labelPosition: "side" },
-    { rows: 4, cols: 3, dynamicLabelSize: "ushaped", labelPosition: "side" },
+    {
+        "setup": "setup1",
+        "setup-length": 40,
+        "question-time": 12,
+        "question-min-spacing": 13,
+        "no-questions": [],
+        "num-rows": 4,
+        "num-columns": 3,
+        "anim-duration": 500,
+        "anim-delay": 300,
+        "num-points": 12,
+        "rolling-avg": 5,
+        "sound": [],
+        "vis-showXAxisTicks": true,
+        "vis-xAxisInverseStatic": false,
+        "vis-useThresholdColors": true,
+        "vis-showThresholdBand": true,
+        "vis-backgroundEncoding": false,
+        "vis-gridBackgroundMove": false,
+        "vis-showVerticalBar": false,
+        "vis-useRollingAverage": false,
+        "vis-easeInOut": true,
+        "vis-dynamicLabelSize": "none",
+        "vis-labelPosition": "integrated"
+    },
+    {
+        "setup": "setup2",
+        "setup-length": 40,
+        "question-time": 12,
+        "question-min-spacing": 13,
+        "no-questions": [],
+        "num-rows": 4,
+        "num-columns": 3,
+        "anim-duration": 500,
+        "anim-delay": 300,
+        "num-points": 12,
+        "rolling-avg": 5,
+        "sound": [],
+        "vis-showXAxisTicks": true,
+        "vis-xAxisInverseStatic": false,
+        "vis-useThresholdColors": true,
+        "vis-showThresholdBand": true,
+        "vis-backgroundEncoding": false,
+        "vis-gridBackgroundMove": false,
+        "vis-showVerticalBar": false,
+        "vis-useRollingAverage": false,
+        "vis-easeInOut": true,
+        "vis-dynamicLabelSize": "none",
+        "vis-labelPosition": "side"
+    },
+    {
+        "setup": "setup3",
+        "setup-length": 40,
+        "question-time": 12,
+        "question-min-spacing": 13,
+        "no-questions": [],
+        "num-rows": 4,
+        "num-columns": 3,
+        "anim-duration": 500,
+        "anim-delay": 300,
+        "num-points": 12,
+        "rolling-avg": 5,
+        "sound": [],
+        "vis-showXAxisTicks": true,
+        "vis-xAxisInverseStatic": false,
+        "vis-useThresholdColors": true,
+        "vis-showThresholdBand": true,
+        "vis-backgroundEncoding": false,
+        "vis-gridBackgroundMove": false,
+        "vis-showVerticalBar": false,
+        "vis-useRollingAverage": false,
+        "vis-easeInOut": true,
+        "vis-dynamicLabelSize": "linear",
+        "vis-labelPosition": "integrated"
+    },
+    {
+        "setup": "setup4",
+        "setup-length": 40,
+        "question-time": 12,
+        "question-min-spacing": 13,
+        "no-questions": [],
+        "num-rows": 4,
+        "num-columns": 3,
+        "anim-duration": 500,
+        "anim-delay": 300,
+        "num-points": 12,
+        "rolling-avg": 5,
+        "sound": [],
+        "vis-showXAxisTicks": true,
+        "vis-xAxisInverseStatic": false,
+        "vis-useThresholdColors": true,
+        "vis-showThresholdBand": true,
+        "vis-backgroundEncoding": false,
+        "vis-gridBackgroundMove": false,
+        "vis-showVerticalBar": false,
+        "vis-useRollingAverage": false,
+        "vis-easeInOut": true,
+        "vis-dynamicLabelSize": "ushaped",
+        "vis-labelPosition": "integrated"
+    },
+    {
+        "setup": "setup5",
+        "setup-length": 40,
+        "question-time": 12,
+        "question-min-spacing": 13,
+        "no-questions": [],
+        "num-rows": 4,
+        "num-columns": 3,
+        "anim-duration": 500,
+        "anim-delay": 300,
+        "num-points": 12,
+        "rolling-avg": 5,
+        "sound": [],
+        "vis-showXAxisTicks": true,
+        "vis-xAxisInverseStatic": false,
+        "vis-useThresholdColors": true,
+        "vis-showThresholdBand": true,
+        "vis-backgroundEncoding": false,
+        "vis-gridBackgroundMove": false,
+        "vis-showVerticalBar": false,
+        "vis-useRollingAverage": false,
+        "vis-easeInOut": true,
+        "vis-dynamicLabelSize": "linear",
+        "vis-labelPosition": "side"
+    },
+    {
+        "setup": "setup6",
+        "setup-length": 40,
+        "question-time": 12,
+        "question-min-spacing": 13,
+        "no-questions": [],
+        "num-rows": 4,
+        "num-columns": 3,
+        "anim-duration": 500,
+        "anim-delay": 300,
+        "num-points": 12,
+        "rolling-avg": 5,
+        "sound": [],
+        "vis-showXAxisTicks": true,
+        "vis-xAxisInverseStatic": false,
+        "vis-useThresholdColors": true,
+        "vis-showThresholdBand": true,
+        "vis-backgroundEncoding": false,
+        "vis-gridBackgroundMove": false,
+        "vis-showVerticalBar": false,
+        "vis-useRollingAverage": false,
+        "vis-easeInOut": true,
+        "vis-dynamicLabelSize": "ushaped",
+        "vis-labelPosition": "side"
+    }
+]
+
+const ALL_QUESTIONS = [
+    {
+        "id": "q1",
+        "prompt": "Find the machine that has the <b>highest</b> output right now."
+    },
+    {
+        "id": "q2",
+        "prompt": "Find the machine that has the <b>lowest</b> output right now."
+    },
+    {
+        "id": "q3",
+        "prompt": "Find 1 machine that has a visible output <b>increasing</b> over time at the beginning of the question. There may be more, but please select only 1.",
+        "type": "radio"
+    },
+    {
+        "id": "q4",
+        "prompt": "Find 1 machine that has a visible output <b>decreasing</b> over time at the beginning of the question. There may be more, but please select only 1."
+    },
+    {
+        "id": "q5",
+        "prompt": "Find 1 machine that <b>is outside of the acceptable range</b> right now."
+    },
+    {
+        "id": "q6",
+        "prompt": "Find 1 machine that <b>has been outside of the acceptable range in the visible time range</b> at the beginning of the question. There may be more, but please select only 1."
+    }
+]
+
+const MACHINE_OPTIONS = [
+    "Mach. 1", "Mach. 2", "Mach. 3", "Mach. 4", "Mach. 5", "Mach. 6", "Mach. 7", "Mach. 8", "Mach. 9", "Mach. 10", "Mach. 11", "Mach. 12"
+]
+
+const TRIAL_ORDERS = [
+    [7, 3, 11, 1, 9, 5, 12, 4, 2, 10, 6, 8],   // trial 1
+    [2, 10, 5, 8, 1, 12, 6, 3, 11, 7, 4, 9],   // trial 2
+    [5, 12, 8, 3, 10, 2, 9, 1, 6, 11, 4, 7],   // trial 3
+    [11, 4, 7, 9, 6, 1, 3, 8, 12, 2, 10, 5],   // trial 4
+    [9, 6, 2, 12, 4, 8, 1, 11, 7, 3, 5, 10],   // trial 5
+    [3, 8, 10, 6, 11, 7, 4, 9, 5, 1, 12, 2],   // trial 6
 ];
 
 function getPageIndex() {
@@ -33,34 +206,35 @@ function getPageIndex() {
     return match ? parseInt(match[1]) - 1 : 0;
 }
 
-(function() {
+let config;
+
+(function () {
     const pageIndex = getPageIndex();
     const designIndex = parseInt(sessionStorage.getItem('designIndex'));
-    const config = DESIGN_CONFIGS[designIndex];
+    config = DESIGN_CONFIGS[designIndex];
 
-    const ROWS = config.rows;
-    const COLS = config.cols;
-    const SETUP_LENGTH = 40;
-    const ANIM_DURATION = 400;
-    const ANIM_DELAY = 200;
-    const POINTS = 10;
-    const QUESTION_STEP = 16;
-    const QUESTION_TIME = 15;
+    const SETUP_LENGTH = config['setup-length'];
+    const ROWS = config['num-rows'];
+    const COLS = config['num-columns'];
+    const ANIM_DURATION = config['anim-duration'];
+    const ANIM_DELAY = config['anim-delay'];
+    const POINTS = config['num-points'];
+    const QUESTION_STEP = 15;
+    const QUESTION_TIME = 12;
 
     const question = ALL_QUESTIONS[pageIndex];
-    const validAnswers = TRAINING_ANSWERS[designIndex][pageIndex].map(n => `Mach. ${n}`);
+    const validAnswers = TRAINING_ANSWERS[pageIndex];
 
     const NUM_MACHINES = ROWS * COLS;
-    const selectedFiles = Array.from({ length: NUM_MACHINES }, (_, i) =>
-        `Set${designIndex + 1}Machine${i + 1}.csv`
-    );
+    const order = TRIAL_ORDERS[designIndex];
+    const selectedFiles = order.map(n => `TrainingMachine${n}.csv`);
 
     function goToNextPage() {
         if (pageIndex < 5) {
             sessionStorage.setItem('trainingPageIndex', String(pageIndex + 1));
             window.location.href = 'trainingDescription.html';
         } else {
-            window.location.href = 'https://cliffy2000.github.io/SituatedVis-Survey/';
+            window.location.href = 'trainingTransition.html';
         }
     }
 
@@ -78,12 +252,15 @@ function getPageIndex() {
             .style("grid-template-rows", `repeat(${ROWS}, 1fr)`)
             .style("grid-template-columns", `repeat(${COLS}, 1fr)`);
 
-        const { width: gw, height: gh } = chartsContainer.node().getBoundingClientRect();
-        const wrapperRatio = config.labelPosition === "side" ? 1.0 : 0.85;
-        const cw = (gw / COLS) * wrapperRatio;
-        const ch = gh / ROWS;
+        const { width: gridWidth , height: gridHeight } = chartsContainer.node().getBoundingClientRect();
+        const wrapperRatio = config["vis-labelPosition"] === "side" ? 1.0 : 0.8;
+        const cellWidth = (gridWidth / COLS) * wrapperRatio;
+        const cellHeight = gridHeight / ROWS;
 
-        const wrapperClass = config.labelPosition === "side"
+        console.log(wrapperRatio);
+        console.log(cellWidth);
+
+        const wrapperClass = config["vis-labelPosition"] === "side"
             ? "chart-wrapper chart-wrapper-side"
             : "chart-wrapper chart-wrapper-integrated";
 
@@ -92,13 +269,27 @@ function getPageIndex() {
         const charts = chartsContainer.selectAll("div")
             .data(d3.zip(datasets, titles))
             .join("div")
-                .attr("class", config.labelPosition === "side" ? "chart-div-side" : "chart-div")
+            .attr("class", config["vis-labelPosition"] === "side" ? "chart-div-side" : "chart-div")
             .append("div")
-                .attr("class", wrapperClass)
+            .attr("class", wrapperClass)
             .append(([data, title]) => generateChart(
-                data, title, cw, ch, POINTS, 5,
-                true, true, true, false, false, false, false, true, false,
-                config.dynamicLabelSize, config.labelPosition
+                data, 
+                title, 
+                cellWidth, 
+                cellHeight, 
+                POINTS, 
+                config['rolling-avg'],
+                config['vis-showXAxisTicks'], 
+                config['vis-useThresholdColors'], 
+                config['vis-easeInOut'],
+                config['vis-xAxisInverseStatic'], 
+                config['vis-backgroundEncoding'], 
+                config['vis-useRollingAverage'], 
+                config['vis-gridBackgroundMove'], 
+                config['vis-showThresholdBand'], 
+                config['vis-showVerticalBar'], 
+                config['vis-dynamicLabelSize'], 
+                config['vis-labelPosition']
             ))
             .nodes();
 
@@ -179,7 +370,7 @@ function getPageIndex() {
             div.appendChild(grid);
             container.appendChild(div);
 
-            btn.onclick = function() {
+            btn.onclick = function () {
                 const sel = grid.querySelector(`input[name="${question.id}"]:checked`);
                 if (sel) {
                     questionAnswered = true;

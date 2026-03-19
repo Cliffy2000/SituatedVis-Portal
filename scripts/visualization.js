@@ -46,7 +46,7 @@ function generateChart(
 	let CANVAS_HEIGHT = height;
 
 	// this is the width on the right side of the plot for additional information
-	const INFO_DEFAULT_WIDTH = 150;
+	const INFO_DEFAULT_WIDTH = CANVAS_WIDTH / 5;
 	let INFO_WIDTH = (labelPosition === "side") ? INFO_DEFAULT_WIDTH : 0;
 
 	// this is the size of the chart area
@@ -90,8 +90,8 @@ function generateChart(
 		totalPointWidth = 2 * POINT_SIZE * viewRange;
 	}
 	
-	let LABEL_FONT_DEFAULT_SIZE = 17;
-	let LABEL_FONT_SIZE_RANGE = [14, 40];
+	let LABEL_FONT_DEFAULT_SIZE = 15;
+	let LABEL_FONT_SIZE_RANGE = [11, 21];
 	let VERTICAL_BAR_WIDTH = 20;
 
 	const MIN_THRESHOLD = 30;
@@ -414,17 +414,17 @@ function generateChart(
 		}
 
 		if (n > MAX_THRESHOLD) {
-			return "#FFBFA8";
+			return "#9D5DD5";
 		} else if (n < MIN_THRESHOLD) {
-			return "#80D9F7";
+			return "#5DD5BF";
 		} else {
-			return "white";
+			return "#8C8C8C";
 		}
 	}
 
 	function getDynamicFontSize(n) {
 		if (labelPosition === "side") {
-			return `74px`;
+			return `60px`;
 		}
 
 		if (dynamicLabelSize === "none") {
@@ -442,11 +442,11 @@ function generateChart(
 		}
 
 		if (n > MAX_THRESHOLD) {
-			return "#FF7F50";
+			return "#9D5DD5";
 		} else if (n < MIN_THRESHOLD) {
-			return "#00B2EE";
+			return "#5DD5BF";
 		} else {
-			return "#121212";
+			return "#8C8C8C";
 		}
 	}
 	

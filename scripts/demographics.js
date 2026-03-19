@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saveUserData(data).then(success => {
             if (success) console.log('Demographics saved');
             else console.log('Failed to save demographics');
-            window.location.href = 'completion.html';
+            window.location.href = 'https://app.prolific.com/submissions/complete?cc=CWB5852J';
         });
     });
 });

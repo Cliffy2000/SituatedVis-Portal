@@ -1,17 +1,6 @@
-const QUESTION_MAPPING = [
-    [0, 1, 2, 3, 4, 5],
-    [1, 2, 3, 4, 5, 0],
-    [2, 3, 4, 5, 0, 1],
-    [3, 4, 5, 0, 1, 2],
-    [4, 5, 0, 1, 2, 3],
-    [5, 0, 1, 2, 3, 4],
-];
-
 const TEST_IDS = {};
 for (let d = 0; d < 6; d++) {
-    for (let m = 0; m < 6; m++) {
-        TEST_IDS[`secretcode-d${d + 1}m${m + 1}`] = { design: d, mapping: m };
-    }
+    TEST_IDS[`secretcode-d${d + 1}`] = { design: d };
 }
 
 async function getAssignment(id) {
@@ -22,17 +11,15 @@ async function getAssignment(id) {
     if (doc.exists) return doc.data();
 
     const counterRef = db.collection('config').doc('assignmentCounter');
-    const combo = await db.runTransaction(async (tx) => {
+    const designIndex = await db.runTransaction(async (tx) => {
         const snap = await tx.get(counterRef);
         const val = snap.exists ? snap.data().value : 0;
         tx.set(counterRef, { value: val + 1 });
-        return val % 36;
+        return val % 6;
     });
 
     const result = {
-        design: Math.floor(combo / 6),
-        mapping: combo % 6,
-        combo: combo,
+        design: Math.floor(designIndex / 6),
         timestamp: new Date().toISOString()
     };
 
@@ -67,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             sessionStorage.setItem('username', id);
             sessionStorage.setItem('designIndex', String(assignment.design));
-            sessionStorage.setItem('questionMapping', JSON.stringify(QUESTION_MAPPING[assignment.mapping]));
+            sessionStorage.setItem('trainingPageIndex', 0);
 
             window.location.href = 'training2.html';
         } catch (e) {

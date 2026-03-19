@@ -1,8 +1,8 @@
-import pandas as pd
+
 import os
 
 for file in os.listdir():
-    if file.endswith('.csv') and file.startswith('Set'):
-        df = pd.read_csv(file)
-        df.rename(columns={'rand': 'value'}, inplace=True)
-        df.to_csv(file, index=False)
+    if file.endswith('.csv') and file.startswith('Training'):
+        new_name = 'TrainingMachine' + file.split('Training')[1]
+        os.rename(file, new_name)
+        print(f"{file} → {new_name}")
