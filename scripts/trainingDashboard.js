@@ -192,15 +192,6 @@ const MACHINE_OPTIONS = [
     "Mach. 1", "Mach. 2", "Mach. 3", "Mach. 4", "Mach. 5", "Mach. 6", "Mach. 7", "Mach. 8", "Mach. 9", "Mach. 10", "Mach. 11", "Mach. 12"
 ]
 
-const TRIAL_ORDERS = [
-    [7, 3, 11, 1, 9, 5, 12, 4, 2, 10, 6, 8],   // trial 1
-    [2, 10, 5, 8, 1, 12, 6, 3, 11, 7, 4, 9],   // trial 2
-    [5, 12, 8, 3, 10, 2, 9, 1, 6, 11, 4, 7],   // trial 3
-    [11, 4, 7, 9, 6, 1, 3, 8, 12, 2, 10, 5],   // trial 4
-    [9, 6, 2, 12, 4, 8, 1, 11, 7, 3, 5, 10],   // trial 5
-    [3, 8, 10, 6, 11, 7, 4, 9, 5, 1, 12, 2],   // trial 6
-];
-
 function getPageIndex() {
     const match = window.location.pathname.match(/trainingSetup(\d+)/);
     return match ? parseInt(match[1]) - 1 : 0;
@@ -226,8 +217,7 @@ let config;
     const validAnswers = TRAINING_ANSWERS[pageIndex];
 
     const NUM_MACHINES = ROWS * COLS;
-    const order = TRIAL_ORDERS[designIndex];
-    const selectedFiles = order.map(n => `TrainingMachine${n}.csv`);
+    const selectedFiles = Array.from({length: 12}, (_, i) => `Set${pageIndex + 1}Machine${i + 1}.csv`);
 
     function goToNextPage() {
         if (pageIndex < 5) {
