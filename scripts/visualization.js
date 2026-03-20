@@ -79,7 +79,7 @@ function generateChart(
 	}
 
 	let AXIS_TICK_SIZE = 4;
-	let AXIS_FONT_SIZE = 13;
+	let AXIS_FONT_SIZE = 12;
 
 	// slightly reduce the point size so that there is sufficient space between points
 	// point size is representing radius
@@ -282,6 +282,14 @@ function generateChart(
 		.domain(y.domain())
 		.range([LABEL_FONT_SIZE_RANGE[0], LABEL_FONT_SIZE_RANGE[1]]);
 
+	const linearSideFontSizeScale = d3.scaleLinear()
+		.domain(y.domain())
+		.range([20, 84]);
+	
+	const ushapedSideFontSizeScale = d3.scaleLinear()
+		.domain([y.domain()[0], (y.domain()[0] + y.domain()[1]) / 2, y.domain()[1]])
+		.range([84, 40, 84]);
+
 	const ushapedFontSizeScale = d3.scaleLinear()
 		.domain([y.domain()[0], (y.domain()[0] + y.domain()[1]) / 2, y.domain()[1]])
 		.range([LABEL_FONT_SIZE_RANGE[1], LABEL_FONT_SIZE_RANGE[0], LABEL_FONT_SIZE_RANGE[1]]);
@@ -292,10 +300,10 @@ function generateChart(
 		.attr("dominant-baseline", "middle")
 		.style("font-family", "sans-serif")
 		.style("font-size", getDynamicFontSize(labelValue))
-		.style("fill", labelPosition === "side" ? getSideFontColor(labelValue) : "white");
+		.style("fill", "white");
 	
 	// adjust the position of the label to match its value
-	if (labelPosition !== "side") {
+	//if (labelPosition !== "side") {
 		labelText.transition()
 			.duration(0)
 			.on("end", function () {
@@ -310,7 +318,7 @@ function generateChart(
 					.attr("rx", 3)
 					.attr("ry", 3);
 			});
-	}
+	//}
 
 
 	function update(step, animTime) {
@@ -341,6 +349,8 @@ function generateChart(
 				
 		if (labelPosition === "integrated") {
 			labelGroup.transition(anim).attr("transform", `translate(${labelXPos}, ${y(labelValue)})`);
+		} else {
+			labelGroup.transition(anim).attr("font-color", "white");
 		}
 		
 		labelText.text(labelValue)
@@ -354,9 +364,9 @@ function generateChart(
 			.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
 			.attr("fill", getThresholdColor(labelValue));
 		
-		if (labelPosition === "side") {
-			labelText.style("fill", getSideFontColor(labelValue));
-		}
+		// if (labelPosition === "side") {
+		// 	labelText.style("fill", getSideFontColor(labelValue));
+		// }
 	}
 
 	function resize() {
@@ -423,8 +433,15 @@ function generateChart(
 	}
 
 	function getDynamicFontSize(n) {
+		// u shaped side scaling is disabled
 		if (labelPosition === "side") {
-			return `60px`;
+			if (dynamicLabelSize === "linear") {
+				return `${linearSideFontSizeScale(n)}px`;
+			} else if (dynamicLabelSize === "ushaped") {
+				return `${ushapedSideFontSizeScale(n)}px`;
+			} else {
+				return `64px`;
+			}
 		}
 
 		if (dynamicLabelSize === "none") {

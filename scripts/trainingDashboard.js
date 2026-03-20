@@ -171,12 +171,11 @@ const ALL_QUESTIONS = [
     },
     {
         "id": "q3",
-        "prompt": "Find 1 machine that has a visible output <b>increasing</b> over time at the beginning of the question. There may be more, but please select only 1.",
-        "type": "radio"
+        "prompt": "Find 1 machine that has a visible output <b>increasing</b> over time."
     },
     {
         "id": "q4",
-        "prompt": "Find 1 machine that has a visible output <b>decreasing</b> over time at the beginning of the question. There may be more, but please select only 1."
+        "prompt": "Find 1 machine that has a visible output <b>decreasing</b> over time."
     },
     {
         "id": "q5",
@@ -184,7 +183,7 @@ const ALL_QUESTIONS = [
     },
     {
         "id": "q6",
-        "prompt": "Find 1 machine that <b>has been outside of the acceptable range in the visible time range</b> at the beginning of the question. There may be more, but please select only 1."
+        "prompt": "Find 1 machine that <b>has been outside of the acceptable range</b> in the visible time range."
     }
 ]
 
@@ -233,7 +232,7 @@ let config;
     let questionAnswered = false;
     let intervalId;
 
-    const btn = document.getElementById('submitButton');
+    const continueBtn = document.getElementById('continueButton');
     const note = document.getElementById('buttonAnnotation');
     const timerEl = document.getElementById('questionTimer');
 
@@ -286,13 +285,28 @@ let config;
         function start() { intervalId = setInterval(animate, ANIM_DURATION + ANIM_DELAY); }
         function stop() { clearInterval(intervalId); }
 
+        function setRetry() {
+            continueBtn.disabled = false;
+            continueBtn.style.backgroundColor = '#e57373';
+            continueBtn.textContent = 'Retry';
+            continueBtn.onclick = resetToRetry;
+        }
+
+        function setNext() {
+            continueBtn.disabled = false;
+            continueBtn.style.backgroundColor = '#4CAF50';
+            continueBtn.textContent = 'Next';
+            continueBtn.onclick = () => goToNextPage();
+        }
+
         function resetToRetry() {
             stop();
             document.getElementById('questionContainer').innerHTML = '';
             note.textContent = '';
-            btn.textContent = 'Submit';
-            btn.disabled = true;
-            btn.onclick = null;
+            continueBtn.textContent = 'Next';
+            continueBtn.disabled = true;
+            continueBtn.style.backgroundColor = '';
+            continueBtn.onclick = null;
             if (timerEl) timerEl.textContent = '';
             questionShown = false;
             questionAnswered = false;
@@ -303,13 +317,11 @@ let config;
         function animate() {
             step++;
 
-            // Show question on the right step
             if (step === QUESTION_STEP && !questionShown) {
                 questionShown = true;
                 showQuestion();
             }
 
-            // Timer countdown and time-up handling
             if (questionShown && !questionAnswered) {
                 const elapsed = step - QUESTION_STEP;
                 const remaining = QUESTION_TIME - 1 - elapsed;
@@ -317,14 +329,11 @@ let config;
                 if (timerEl) timerEl.textContent = Math.max(remaining, 0);
 
                 if (remaining < 0) {
-                    // Time's up — clear question, treat as incorrect
                     document.getElementById('questionContainer').innerHTML = '';
                     if (timerEl) timerEl.textContent = '';
                     note.textContent = "Time's up — please try again.";
-                    btn.textContent = 'Retry';
-                    btn.disabled = false;
-                    btn.onclick = resetToRetry;
-                    questionShown = false; // prevent further timer updates
+                    setRetry();
+                    questionShown = false;
                 }
             }
 
@@ -355,34 +364,38 @@ let config;
             });
 
             if (timerEl) timerEl.textContent = QUESTION_TIME - 1;
-            grid.addEventListener('change', () => { btn.disabled = false; });
 
-            div.appendChild(grid);
-            container.appendChild(div);
+            const submitButton = document.createElement('button');
+            submitButton.className = 'question-submit-button';
+            submitButton.textContent = 'Submit';
+            submitButton.disabled = true;
 
-            btn.onclick = function () {
+            grid.addEventListener('change', () => { submitButton.disabled = false; });
+
+            submitButton.addEventListener('click', () => {
                 const sel = grid.querySelector(`input[name="${question.id}"]:checked`);
                 if (sel) {
                     questionAnswered = true;
                     if (timerEl) timerEl.textContent = '';
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Submitted';
+                    grid.querySelectorAll('input').forEach(i => i.disabled = true);
                     checkAnswer(sel.value);
                 }
-            };
+            });
+
+            div.appendChild(grid);
+            div.appendChild(submitButton);
+            container.appendChild(div);
         }
 
         function checkAnswer(answer) {
-            document.querySelectorAll(`input[name="${question.id}"]`).forEach(i => i.disabled = true);
-
             if (validAnswers.includes(answer)) {
                 note.textContent = 'Correct!';
-                btn.textContent = 'Next';
-                btn.disabled = false;
-                btn.onclick = () => goToNextPage();
+                setNext();
             } else {
                 note.textContent = 'Incorrect — please try again.';
-                btn.textContent = 'Retry';
-                btn.disabled = false;
-                btn.onclick = resetToRetry;
+                setRetry();
             }
         }
 

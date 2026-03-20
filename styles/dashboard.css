@@ -66,6 +66,34 @@ svg {
     padding-right: 25px;
 }
 
+#nextButton,
+#continueButton {
+    font-family: inherit;
+    padding: 20px 30px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #cccccc;
+    color: #666666;
+}
+
+#nextButton:disabled,
+#continueButton:disabled {
+    cursor: not-allowed;
+    background-color: #cccccc;
+    color: #666666;
+}
+
+#nextButton:not(:disabled),
+#continueButton:not(:disabled) {
+    color: white;
+    cursor: pointer;
+}
+
+#nextButton:not(:disabled):hover {
+    background-color: #45a049;
+}
+
 #questionTimer {
     font-size: 24px;
     font-weight: bold;
@@ -140,18 +168,83 @@ svg {
     opacity: 0.5;
 }
 
-.continue-button {
-    padding: 15px 30px;
-    font-size: 16px;
-    font-weight: 500;
+.question-submit-button {
+    background-color: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 5px;
+    padding: 8px 20px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: #cccccc;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
-.continue-button:disabled {
+.question-submit-button:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+.question-submit-button:disabled {
+    background-color: #cccccc;
     cursor: not-allowed;
-    opacity: 0.7;
+}
+
+/* Completion overlay */
+#completion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.completion-box {
+    background-color: white;
+    border-radius: 12px;
+    padding: 40px 50px;
+    text-align: center;
+    max-width: 480px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    font-family: sans-serif;
+}
+
+.completion-icon {
+    font-size: 48px;
+    color: #4CAF50;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.completion-heading {
+    margin: 0 0 12px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.completion-message {
+    margin: 0 0 24px 0;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.completion-countdown {
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    color: #999;
+}
+
+.completion-button {
+    padding: 10px 28px;
+    font-size: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
 }

@@ -145,33 +145,6 @@
     transform: scale(0.98);
 }
 
-#submitButton {
-    width: 100%;
-    padding: 15px 30px;
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    border-radius: 5px;
-    background-color: #cccccc;
-    color: #666666;
-}
-
-#submitButton:disabled {
-    cursor: not-allowed;
-    background-color: #cccccc;
-    color: #666666;
-}
-
-#submitButton:not(:disabled) {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-#submitButton:not(:disabled):hover {
-    background-color: #45a049;
-}
-
 .designScreenshot {
     width: 100%;
     display: flex;
