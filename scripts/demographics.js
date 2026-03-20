@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: 'demographics'
             },
             responses: {
+                commitmentQuality: sessionStorage.getItem('vis-commitmentQuality') || null,
                 taskRatings: {
                     q1: document.querySelector('input[name="task-q1"]:checked')?.value,
                     q2: document.querySelector('input[name="task-q2"]:checked')?.value,

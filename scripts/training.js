@@ -31,16 +31,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('.page1-checkbox');
     const input = document.getElementById('prolific-id');
     const btn = document.getElementById('continueToPage2');
+    const qualityRadios = document.querySelectorAll('input[name="quality-commit"]');
 
     const saved = sessionStorage.getItem('username');
     if (saved) input.value = saved;
 
     function validate() {
         const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-        btn.disabled = !(allChecked && input.value.trim());
+        const radioSelected = document.querySelector('input[name="quality-commit"]:checked') !== null;
+        btn.disabled = !(allChecked && input.value.trim() && radioSelected);
     }
 
     checkboxes.forEach(cb => cb.addEventListener('change', validate));
+    qualityRadios.forEach(r => r.addEventListener('change', validate));
     input.addEventListener('input', validate);
     validate();
 
@@ -51,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             const assignment = await getAssignment(id);
+
+            const selectedRadio = document.querySelector('input[name="quality-commit"]:checked');
+            sessionStorage.setItem('vis-commitmentQuality', selectedRadio.value);
 
             sessionStorage.setItem('username', id);
             sessionStorage.setItem('designIndex', String(assignment.design));
