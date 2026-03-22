@@ -242,7 +242,7 @@ let config;
             .style("grid-template-columns", `repeat(${COLS}, 1fr)`);
 
         const { width: gridWidth , height: gridHeight } = chartsContainer.node().getBoundingClientRect();
-        const wrapperRatio = config["vis-labelPosition"] === "side" ? 1.0 : 0.8;
+        const wrapperRatio = config["vis-labelPosition"] === "side" ? 1.0 : 0.85;
         const cellWidth = (gridWidth / COLS) * wrapperRatio;
         const cellHeight = gridHeight / ROWS;
 
