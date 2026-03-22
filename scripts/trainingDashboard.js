@@ -1,10 +1,10 @@
 const TRAINING_ANSWERS = [
-    ["Mach. 1"], 
-    ["Mach. 1"], 
-    ["Mach. 1", "Mach. 2", "Mach. 3"], 
-    ["Mach. 1", "Mach. 2", "Mach. 3"], 
-    ["Mach. 1", "Mach. 2", "Mach. 3"], 
-    ["Mach. 1", "Mach. 2", "Mach. 3"]
+    ["Mach. 5"], 
+    ["Mach. 4", "Mach. 7"], 
+    ["Mach. 3", "Mach. 5", "Mach. 7"], 
+    ["Mach. 2", "Mach. 10", "Mach. 11"], 
+    ["Mach. 4", "Mach. 5", "Mach. 7", "Mach. 8"], 
+    ["Mach. 2", "Mach. 4", "Mach. 7", "Mach. 9", "Mach. 11", "Mach. 12"]
 ];
 
 const DESIGN_CONFIGS = [
