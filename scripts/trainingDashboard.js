@@ -322,6 +322,10 @@ let config;
                 showQuestion();
             }
 
+            if (QUESTION_STEP == step) {
+				playSound();
+			}
+
             if (questionShown && !questionAnswered) {
                 const elapsed = step - QUESTION_STEP;
                 const remaining = QUESTION_TIME - 1 - elapsed;
@@ -388,6 +392,12 @@ let config;
             div.appendChild(submitButton);
             container.appendChild(div);
         }
+
+        function playSound() {
+			const audio = new Audio('beep.mp3');
+			audio.volume = 0.1;
+			audio.play().catch(err => console.log('Audio play failed:', err));
+		}
 
         function checkAnswer(answer) {
             if (validAnswers.includes(answer)) {
