@@ -292,10 +292,10 @@ function generateChart(
 		.attr("dominant-baseline", "middle")
 		.style("font-family", "sans-serif")
 		.style("font-size", getDynamicFontSize(labelValue))
-		.style("fill", "white");
+		.style("fill", (labelPosition === "side" && dynamicLabelSize === "none") ? getSideFontColor(labelValue) : "white");
 	
 	// adjust the position of the label to match its value
-	//if (labelPosition !== "side") {
+	if (!(labelPosition === "side" && dynamicLabelSize === "none")) {
 		labelText.transition()
 			.duration(0)
 			.on("end", function () {
@@ -310,7 +310,7 @@ function generateChart(
 					.attr("rx", 3)
 					.attr("ry", 3);
 			});
-	//}
+	}
 
 
 	function update(step, animTime) {
@@ -342,7 +342,7 @@ function generateChart(
 		if (labelPosition === "integrated") {
 			labelGroup.transition(anim).attr("transform", `translate(${labelXPos}, ${y(labelValue)})`);
 		} else {
-			labelGroup.transition(anim).attr("font-color", "white");
+			labelGroup.transition(anim).duration(0);
 		}
 		
 		labelText.text(labelValue)
@@ -356,9 +356,9 @@ function generateChart(
 			.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
 			.attr("fill", getThresholdColor(labelValue));
 		
-		// if (labelPosition === "side") {
-		// 	labelText.style("fill", getSideFontColor(labelValue));
-		// }
+		if (labelPosition === "side" && dynamicLabelSize === "none") {
+			labelText.style("fill", getSideFontColor(labelValue));
+		}
 	}
 
 	function resize() {
@@ -435,6 +435,10 @@ function generateChart(
 		// 		return `64px`;
 		// 	}
 		// }
+
+		if (labelPosition === "side" && dynamicLabelSize === "none") {
+			return `${LABEL_FONT_SIZE_RANGE[1] * 1.75}px`;
+		}
 
 		if (dynamicLabelSize === "none") {
 			return `${LABEL_FONT_DEFAULT_SIZE}px`;

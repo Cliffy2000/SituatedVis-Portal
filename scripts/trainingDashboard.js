@@ -335,7 +335,7 @@ let config;
                 if (remaining < 0) {
                     document.getElementById('questionContainer').innerHTML = '';
                     if (timerEl) timerEl.textContent = '';
-                    note.textContent = "Time's up — please try again.";
+                    note.innerHTML = "Time's up<br>Please try again.";
                     setRetry();
                     questionShown = false;
                 }
