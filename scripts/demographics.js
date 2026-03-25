@@ -11,18 +11,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const taskRatings = ['task-q1','task-q2','task-q3','task-q4','task-q5','task-q6']
             .every(name => document.querySelector(`input[name="${name}"]:checked`));
         const comparisonFilled = document.getElementById('task-comparison').value.trim().length > 0;
+        const strategiesFilled = document.getElementById('task-strategies').value.trim().length > 0;
         const ageSelected = document.querySelector('input[name="age"]:checked');
         const genderSelected = document.querySelector('input[name="gender"]:checked');
         const raceSelected = document.querySelectorAll('input[name="race"]:checked').length > 0;
         const hispanicSelected = document.querySelector('input[name="hispanic"]:checked');
         const visionSelected = document.querySelector('input[name="vision"]:checked');
 
+ 
         let visionComplete = visionSelected;
         if (visionSelected && visionSelected.value === 'other') {
             visionComplete = document.querySelector('#vision-description input').value.trim().length > 0;
         }
 
-        const allComplete = taskRatings && comparisonFilled && ageSelected && genderSelected
+        let genderComplete = genderSelected;
+        if (genderSelected && genderSelected.value === 'self-describe') {
+            genderComplete = document.querySelector('#gender-description input').value.trim().length > 0;
+        }
+
+
+        const allComplete = taskRatings && comparisonFilled && strategiesFilled && ageSelected && genderComplete
             && raceSelected && hispanicSelected && visionComplete;
 
         submitButton.disabled = !allComplete;
@@ -32,7 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('change', checkCompletion);
     });
     document.getElementById('task-comparison').addEventListener('input', checkCompletion);
+    document.getElementById('task-strategies').addEventListener('input', checkCompletion);
     document.querySelector('#vision-description input')?.addEventListener('input', checkCompletion);
+    document.querySelector('#gender-description input')?.addEventListener('input', checkCompletion);
 
     submitButton.addEventListener('click', function(e) {
         e.preventDefault();
@@ -54,8 +64,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     q6: document.querySelector('input[name="task-q6"]:checked')?.value,
                 },
                 taskComparison: document.getElementById('task-comparison').value.trim(),
+                taskStrategies: document.getElementById('task-strategies').value.trim(),
                 age: document.querySelector('input[name="age"]:checked')?.value,
-                gender: document.querySelector('input[name="gender"]:checked')?.value,
+                gender: document.querySelector('#gender-description input')?.value || null,
                 race: Array.from(document.querySelectorAll('input[name="race"]:checked')).map(cb => cb.value),
                 hispanic: document.querySelector('input[name="hispanic"]:checked')?.value,
                 vision: document.querySelector('input[name="vision"]:checked')?.value,
