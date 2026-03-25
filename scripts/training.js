@@ -19,7 +19,7 @@ async function getAssignment(id) {
     });
 
     const result = {
-        design: Math.floor(designIndex / 6),
+        design: designIndex,
         timestamp: new Date().toISOString()
     };
 
