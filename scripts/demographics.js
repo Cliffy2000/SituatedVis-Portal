@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 taskComparison: document.getElementById('task-comparison').value.trim(),
                 taskStrategies: document.getElementById('task-strategies').value.trim(),
                 age: document.querySelector('input[name="age"]:checked')?.value,
-                gender: document.querySelector('#gender-description input')?.value || null,
+                gender: document.querySelector('input[name="gender"]:checked')?.value,
+                genderDescription: document.querySelector('#gender-description input')?.value || null,
                 race: Array.from(document.querySelectorAll('input[name="race"]:checked')).map(cb => cb.value),
                 hispanic: document.querySelector('input[name="hispanic"]:checked')?.value,
                 vision: document.querySelector('input[name="vision"]:checked')?.value,
@@ -76,9 +77,13 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         saveUserData(data).then(success => {
-            if (success) console.log('Demographics saved');
-            else console.log('Failed to save demographics');
-            window.location.href = 'https://app.prolific.com/submissions/complete?cc=CWB5852J';
+            if (success) {
+                console.log('Demographics saved');
+                sessionStorage.clear();
+                window.location.href = 'https://app.prolific.com/submissions/complete?cc=CWB5852J';
+            } else {
+                console.log('Failed to save demographics');
+            }
         });
     });
 });
