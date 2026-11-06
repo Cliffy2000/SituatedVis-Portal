@@ -15,7 +15,7 @@ async function getAssignment(id) {
         const snap = await tx.get(counterRef);
         const val = snap.exists ? snap.data().value : 0;
         tx.set(counterRef, { value: val + 1 });
-        return val % 6;
+        return val % 8;
     });
 
     const result = {
