@@ -274,8 +274,7 @@ function generateChart(
 	} else if (labelPosition === "separated") {
 		labelYPos = y.range()[1] - 10;
 	} else if (labelPosition === "control") {
-		labelXPos = x(labelXPos + 5);
-		labelYPos = y(labelYPos + 5);
+		labelXPos = CHART_WIDTH / 2;
 	}
 
 	const labelGroup = svg.append("g")
