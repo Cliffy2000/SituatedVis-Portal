@@ -47,7 +47,7 @@ function generateChart(
 
 	// this is the width on the right side of the plot for additional information
 	const INFO_DEFAULT_WIDTH = CANVAS_WIDTH * 0.15;
-	let INFO_WIDTH = (labelPosition === "side") ? INFO_DEFAULT_WIDTH : 0;
+	let INFO_WIDTH = (labelPosition === "side" || labelPosition == "control") ? INFO_DEFAULT_WIDTH : 0;
 
 	// this is the size of the chart area
 	let CHART_WIDTH = CANVAS_WIDTH - INFO_WIDTH;
@@ -453,7 +453,7 @@ function generateChart(
 	}
 
 	function getSideFontColor(n) {
-		if (!useThresholdColors) {
+		if (!useThresholdColors || labelPosition == "control") {
 			return "#121212";
 		}
 
