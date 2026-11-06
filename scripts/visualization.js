@@ -359,7 +359,7 @@ function generateChart(
 			.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
 			.attr("fill", getThresholdColor(labelValue));
 		
-		if (labelPosition === "side" && dynamicLabelSize === "none") {
+		if (labelPosition === "side" && dynamicLabelSize === "none" || labelPosition == "control") {
 			labelText.style("fill", getSideFontColor(labelValue));
 		}
 	}
