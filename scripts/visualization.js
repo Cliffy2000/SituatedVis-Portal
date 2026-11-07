@@ -272,7 +272,7 @@ function generateChart(
 		labelXPos = CHART_WIDTH + INFO_WIDTH / 2 - 10;
 		labelYPos = CHART_HEIGHT / 1.85;
 	} else if (labelPosition === "separated") {
-		labelYPos = y.range()[1] - 8;
+		labelYPos = y.range()[1];
 	} else if (labelPosition === "control") {
 		labelXPos = CHART_WIDTH - 10
 	}
@@ -304,7 +304,7 @@ function generateChart(
 				const textBBox = d3.select(this).node().getBBox();
 
 				labelGroup.insert("rect", "text")
-					.attr("x", textBBox.x - TEXT_PADDING.horizontal)
+					.attr("x", textBBox.x - 1.2 * TEXT_PADDING.horizontal)
 					.attr("y", textBBox.y - TEXT_PADDING.vertical)
 					.attr("width", textBBox.width + 2 * TEXT_PADDING.horizontal)
 					.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
@@ -352,7 +352,7 @@ function generateChart(
 		
 		const textBBox = labelText.node().getBBox();
 		labelGroup.transition(anim).select("rect")
-			.attr("x", textBBox.x - TEXT_PADDING.horizontal)
+			.attr("x", textBBox.x - 1.2 * TEXT_PADDING.horizontal)
 			.attr("y", textBBox.y - TEXT_PADDING.vertical)
 			.attr("width", textBBox.width + 2 * TEXT_PADDING.horizontal)
 			.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
