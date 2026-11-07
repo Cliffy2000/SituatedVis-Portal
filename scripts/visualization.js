@@ -253,7 +253,7 @@ function generateChart(
 		d => d.value
 	));
 	let labelValue = useRollingAverage ? average : rightPoint.value;
-	let labelXPos = x(rightPoint.index);
+	let labelXPos = x(rightPoint.index) + TEXT_PADDING.horizontal;
 	let labelYPos = y(labelValue);
 
 	let verticalBar;
