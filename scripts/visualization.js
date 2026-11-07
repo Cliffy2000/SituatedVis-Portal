@@ -304,7 +304,7 @@ function generateChart(
 				const textBBox = d3.select(this).node().getBBox();
 
 				labelGroup.insert("rect", "text")
-					.attr("x", textBBox.x + TEXT_PADDING.horizontal)
+					.attr("x", textBBox.x + TEXT_PADDING.horizontal/2)
 					.attr("y", textBBox.y - TEXT_PADDING.vertical)
 					.attr("width", textBBox.width + 2 * TEXT_PADDING.horizontal)
 					.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
@@ -354,7 +354,7 @@ function generateChart(
 		labelGroup.transition(anim).select("rect")
 			.attr("x", textBBox.x + TEXT_PADDING.horizontal)
 			.attr("y", textBBox.y - TEXT_PADDING.vertical)
-			.attr("width", textBBox.width + 2 * TEXT_PADDING.horizontal)
+			.attr("width", textBBox.width + 2 * TEXT_PADDING.horizontal/2)
 			.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
 			.attr("fill", getThresholdColor(labelValue));
 		
