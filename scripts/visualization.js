@@ -272,7 +272,7 @@ function generateChart(
 		labelXPos = CHART_WIDTH + INFO_WIDTH / 2 - 10;
 		labelYPos = CHART_HEIGHT / 1.85;
 	} else if (labelPosition === "separated") {
-		labelYPos = y.range()[1] - 10;
+		labelYPos = y.range()[1] - 8;
 	} else if (labelPosition === "control") {
 		labelXPos = CHART_WIDTH - 10
 	}
