@@ -1,5 +1,5 @@
 const TEST_IDS = {};
-for (let d = 0; d < 6; d++) {
+for (let d = 0; d < 8; d++) {
     TEST_IDS[`secretcode-d${d + 1}`] = { design: d };
 }
 

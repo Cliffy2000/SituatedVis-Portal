@@ -181,7 +181,7 @@ const DESIGN_CONFIGS = [
             "vis-useRollingAverage": false,
             "vis-easeInOut": true,
             "vis-dynamicLabelSize": "linear",
-            "vis-labelPosition": "side"
+            "vis-labelPosition": "separated"
         },
         {
             "setup": "setup8",
@@ -206,7 +206,7 @@ const DESIGN_CONFIGS = [
             "vis-useRollingAverage": false,
             "vis-easeInOut": true,
             "vis-dynamicLabelSize": "linear",
-            "vis-labelPosition": "side"
+            "vis-labelPosition": "separated"
         }
 ]
 
