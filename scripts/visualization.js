@@ -53,7 +53,7 @@ function generateChart(
 	let CHART_WIDTH = CANVAS_WIDTH - INFO_WIDTH;
 	let CHART_HEIGHT = CANVAS_HEIGHT;
 	const CHART_MARGIN = { top: 10, right: 15, bottom: 30, left: 35 };
-	const CHART_PADDING = { top: 40, right: 20, bottom: 30, left: 50 };
+	const CHART_PADDING = { top: 40, right: 35, bottom: 30, left: 40 };
 
 	const VIEW_RANGE = viewRange;
 	// const X_AXIS_RIGHT_PADDING = CHART_WIDTH * 0.05;
