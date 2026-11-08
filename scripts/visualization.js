@@ -253,7 +253,7 @@ function generateChart(
 		d => d.value
 	));
 	let labelValue = useRollingAverage ? average : rightPoint.value;
-	let labelXPos = x(rightPoint.index) + 2*TEXT_PADDING.horizontal;
+	let labelXPos = x(rightPoint.index) + 2 * TEXT_PADDING.horizontal;
 	let labelYPos = y(labelValue);
 
 	let verticalBar;
@@ -354,7 +354,7 @@ function generateChart(
 		labelGroup.transition(anim).select("rect")
 			.attr("x", textBBox.x - TEXT_PADDING.horizontal)
 			.attr("y", textBBox.y - TEXT_PADDING.vertical)
-			.attr("width", textBBox.width + 2 * TEXT_PADDING.horizontal/2)
+			.attr("width", textBBox.width + 2 * TEXT_PADDING.horizontal)
 			.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
 			.attr("fill", getThresholdColor(labelValue));
 		
