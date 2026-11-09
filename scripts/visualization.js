@@ -274,7 +274,7 @@ function generateChart(
 	} else if (labelPosition === "separated") {
 		labelYPos = y.range()[1] - 15;
 	} else if (labelPosition === "control") {
-		labelXPos = CHART_WIDTH - 10
+		labelXPos = CHART_WIDTH - 10;
 	}
 
 	const labelGroup = svg.append("g")
@@ -358,7 +358,7 @@ function generateChart(
 			.attr("height", textBBox.height + 2 * TEXT_PADDING.vertical)
 			.attr("fill", getThresholdColor(labelValue));
 		
-		if (labelPosition === "side" && dynamicLabelSize === "none" || labelPosition == "control") {
+		if ((labelPosition === "side" && dynamicLabelSize === "none") || labelPosition == "control") {
 			labelText.style("fill", getSideFontColor(labelValue));
 		}
 	}
