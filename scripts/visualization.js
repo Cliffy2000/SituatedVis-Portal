@@ -154,6 +154,9 @@ function generateChart(
 		.call(xAxis)
 		.attr("clip-path", "url(#xAxisInverseStaticClipPath)");
 	} else {
+		xAxis.select(".tick text")
+     		.attr("font-size","20");
+		
 		xAxisGroup = movableChartGroup.append("g")
 		.attr("transform", `translate(0, ${CHART_HEIGHT - CHART_PADDING.bottom})`)
 		.call(xAxis);
