@@ -229,11 +229,11 @@ const ALL_QUESTIONS = [
     },
     {
         "id": "q5",
-        "prompt": "Find 1 machine that <b>is outside of the acceptable range</b> right now."
+        "prompt": "Find 1 machine that <b>is outside of the acceptable range (30-70)</b> right now."
     },
     {
         "id": "q6",
-        "prompt": "Find 1 machine that <b>has been outside of the acceptable range</b> in the visible time range."
+        "prompt": "Find 1 machine that <b>has been outside of the acceptable range (30-70)</b> in the visible time range."
     }
 ]
 
