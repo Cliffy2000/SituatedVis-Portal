@@ -149,10 +149,10 @@ svg {
 
 .question-grid-option input {
     margin-right: 5px;
-    display: hidden;
+    display: none;
 }
 
-.question-grid-option input[type="radio"]:checked+label{ 
+.question-grid-option:has(> input[type="radio"]:checked){
     background-color: #45a049;
 }
 
