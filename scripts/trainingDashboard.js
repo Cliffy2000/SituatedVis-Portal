@@ -11,8 +11,8 @@ const DESIGN_CONFIGS = [
         {
             "setup": "setup1",
             "setup-length": 150,
-            "question-time": 12,
-            "question-min-spacing": 14,
+            "question-time": 15,
+            "question-min-spacing": 17,
             "no-questions": [],
             "num-rows": 4,
             "num-columns": 3,
@@ -36,8 +36,8 @@ const DESIGN_CONFIGS = [
         {
             "setup": "setup2",
             "setup-length": 150,
-            "question-time": 12,
-            "question-min-spacing": 14,
+            "question-time": 15,
+            "question-min-spacing": 17,
             "no-questions": [],
             "num-rows": 4,
             "num-columns": 3,
@@ -61,8 +61,8 @@ const DESIGN_CONFIGS = [
         {
             "setup": "setup3",
             "setup-length": 150,
-            "question-time": 12,
-            "question-min-spacing": 14,
+            "question-time": 15,
+            "question-min-spacing": 17,
             "no-questions": [],
             "num-rows": 4,
             "num-columns": 3,
@@ -86,8 +86,8 @@ const DESIGN_CONFIGS = [
         {
             "setup": "setup4",
             "setup-length": 150,
-            "question-time": 12,
-            "question-min-spacing": 14,
+            "question-time": 15,
+            "question-min-spacing": 17,
             "no-questions": [],
             "num-rows": 4,
             "num-columns": 3,
@@ -111,8 +111,8 @@ const DESIGN_CONFIGS = [
         {
             "setup": "setup5",
             "setup-length": 150,
-            "question-time": 12,
-            "question-min-spacing": 14,
+            "question-time": 15,
+            "question-min-spacing": 17,
             "no-questions": [],
             "num-rows": 4,
             "num-columns": 3,
@@ -136,8 +136,8 @@ const DESIGN_CONFIGS = [
         {
             "setup": "setup6",
             "setup-length": 150,
-            "question-time": 12,
-            "question-min-spacing": 14,
+            "question-time": 15,
+            "question-min-spacing": 17,
             "no-questions": [],
             "num-rows": 4,
             "num-columns": 3,
@@ -161,8 +161,8 @@ const DESIGN_CONFIGS = [
         {
             "setup": "setup7",
             "setup-length": 150,
-            "question-time": 12,
-            "question-min-spacing": 14,
+            "question-time": 15,
+            "question-min-spacing": 17,
             "no-questions": [],
             "num-rows": 4,
             "num-columns": 3,
@@ -186,8 +186,8 @@ const DESIGN_CONFIGS = [
         {
             "setup": "setup8",
             "setup-length": 150,
-            "question-time": 12,
-            "question-min-spacing": 14,
+            "question-time": 15,
+            "question-min-spacing": 17,
             "no-questions": [],
             "num-rows": 4,
             "num-columns": 3,
@@ -213,27 +213,27 @@ const DESIGN_CONFIGS = [
 const ALL_QUESTIONS = [
     {
         "id": "q1",
-        "prompt": "Find the machine that has the <b>highest</b> output right now."
+        "prompt": "<b>Highest now</b>"
     },
     {
         "id": "q2",
-        "prompt": "Find the machine that has the <b>lowest</b> output right now."
+        "prompt": "<b>Lowest now</b>"
     },
     {
         "id": "q3",
-        "prompt": "Find 1 machine that has a visible output <b>increasing</b> over time."
+        "prompt": "<b>Increasing overall</b>"
     },
     {
         "id": "q4",
-        "prompt": "Find 1 machine that has a visible output <b>decreasing</b> over time."
+        "prompt": "<b>Decreasing overall</b>"
     },
     {
         "id": "q5",
-        "prompt": "Find 1 machine that <b><i>is</i> outside of the acceptable range (30-70)</b> right now."
+        "prompt": "<b><i>Now</i> outside of 30-70</b>"
     },
     {
         "id": "q6",
-        "prompt": "Find 1 machine that <b><i>has been</i> outside of the acceptable range (30-70)</b> in the visible time range."
+        "prompt": "<b><i>Ever</i> outside of 30-70</b>"
     }
 ]
 
