@@ -425,30 +425,15 @@ let config;
             submitButton.disabled = true;
 
             grid.addEventListener('change', () => { 
-                const responseTime = Date.now() - questionStartTime;
-				
-				if (question.type === 'radio') {
-					const selected = optionsContainer.querySelector(`input[name="${question.id}"]:checked`);
-					if (selected) {
-						questionResponses[question.id] = {
-							response: selected.value,
-							responseTimeMs: responseTime,
-							answered: true,
-							questionStep: step,
-							timestamp: new Date().toISOString()
-						};
-					}
-				}
-				
-				// Remove from active tracking
-				activeQuestions = activeQuestions.filter(q => q.id !== question.id);
-				
-				// // Disable submit after clicking
-				// submitButton.disabled = true;
-				// submitButton.textContent = 'Submitted';
-				
-				// Disable all inputs for this question
-				optionsContainer.querySelectorAll('input').forEach(input => input.disabled = true);
+                const sel = grid.querySelector(`input[name="${question.id}"]:checked`);
+                if (sel) {
+                    questionAnswered = true;
+                    if (timerEl) timerEl.textContent = '';
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Submitted';
+                    grid.querySelectorAll('input').forEach(i => i.disabled = true);
+                    checkAnswer(sel.value);
+                }
              });
 
             submitButton.addEventListener('click', () => {
@@ -464,7 +449,7 @@ let config;
             });
 
             div.appendChild(grid);
-            // div.appendChild(submitButton);
+            div.appendChild(submitButton);
             container.appendChild(div);
         }
 
