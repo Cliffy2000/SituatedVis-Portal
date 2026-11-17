@@ -152,6 +152,10 @@ svg {
     display: none;
 }
 
+.question-grid-option input[type="radio"]:checked+label{ 
+    background-color: #45a049;
+}
+
 .question-grid-option span {
     font-size: 13px;
 }
