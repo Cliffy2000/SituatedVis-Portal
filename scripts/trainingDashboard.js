@@ -2,7 +2,7 @@ const TRAINING_ANSWERS = [
     ["Mach. 5"], 
     ["Mach. 4", "Mach. 7"], 
     ["Mach. 3", "Mach. 5", "Mach. 7"], 
-    ["Mach. 2", "Mach. 10", "Mach. 11"], 
+    ["Mach. 2", "Mach. 4", "Mach. 10", "Mach. 11"], 
     ["Mach. 4", "Mach. 5", "Mach. 7", "Mach. 8"], 
     ["Mach. 2", "Mach. 4", "Mach. 7", "Mach. 9", "Mach. 11", "Mach. 12"]
 ];
@@ -229,11 +229,11 @@ const ALL_QUESTIONS = [
     },
     {
         "id": "q5",
-        "prompt": "Find 1 machine that <b>is outside of the acceptable range (30-70)</b> right now."
+        "prompt": "Find 1 machine that <b><i>is</i> outside of the acceptable range (30-70)</b> right now."
     },
     {
         "id": "q6",
-        "prompt": "Find 1 machine that <b>has been outside of the acceptable range (30-70)</b> in the visible time range."
+        "prompt": "Find 1 machine that <b><i>has been</i> outside of the acceptable range (30-70)</b> in the visible time range."
     }
 ]
 
