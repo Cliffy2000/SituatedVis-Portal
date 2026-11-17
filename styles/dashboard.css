@@ -149,7 +149,7 @@ svg {
 
 .question-grid-option input {
     margin-right: 5px;
-    display: none;
+    display: hidden;
 }
 
 .question-grid-option input[type="radio"]:checked+label{ 
