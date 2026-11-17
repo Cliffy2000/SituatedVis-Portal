@@ -424,7 +424,32 @@ let config;
             submitButton.textContent = 'Submit';
             submitButton.disabled = true;
 
-            grid.addEventListener('change', () => { submitButton.disabled = false; });
+            grid.addEventListener('change', () => { 
+                const responseTime = Date.now() - questionStartTime;
+				
+				if (question.type === 'radio') {
+					const selected = optionsContainer.querySelector(`input[name="${question.id}"]:checked`);
+					if (selected) {
+						questionResponses[question.id] = {
+							response: selected.value,
+							responseTimeMs: responseTime,
+							answered: true,
+							questionStep: step,
+							timestamp: new Date().toISOString()
+						};
+					}
+				}
+				
+				// Remove from active tracking
+				activeQuestions = activeQuestions.filter(q => q.id !== question.id);
+				
+				// // Disable submit after clicking
+				// submitButton.disabled = true;
+				// submitButton.textContent = 'Submitted';
+				
+				// Disable all inputs for this question
+				optionsContainer.querySelectorAll('input').forEach(input => input.disabled = true);
+             });
 
             submitButton.addEventListener('click', () => {
                 const sel = grid.querySelector(`input[name="${question.id}"]:checked`);
@@ -439,7 +464,7 @@ let config;
             });
 
             div.appendChild(grid);
-            div.appendChild(submitButton);
+            // div.appendChild(submitButton);
             container.appendChild(div);
         }
 
