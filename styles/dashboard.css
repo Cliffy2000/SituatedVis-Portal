@@ -147,6 +147,10 @@ svg {
     background-color: #45a049;
 }
 
+.question-grid-option:hover:has(> input[disabled]){
+    cursor: not-allowed;
+}
+
 .question-grid-option input {
     margin-right: 5px;
     display: none;
@@ -160,15 +164,15 @@ svg {
     font-size: 13px;
 }
 
-.question-grid-option input:disabled,
+/* .question-grid-option input:disabled,
 .question-vertical-option input:disabled {
     cursor: not-allowed;
-}
+} */
 
 .question-grid-option input:disabled + span,
 .question-vertical-option input:disabled + span {
     opacity: 0.5;
-    cursor: not-allowed;
+    /* cursor: not-allowed; */
 }
 
 .question-submit-button {
