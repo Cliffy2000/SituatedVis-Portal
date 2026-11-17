@@ -436,20 +436,20 @@ let config;
                 }
              });
 
-            submitButton.addEventListener('click', () => {
-                const sel = grid.querySelector(`input[name="${question.id}"]:checked`);
-                if (sel) {
-                    questionAnswered = true;
-                    if (timerEl) timerEl.textContent = '';
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Submitted';
-                    grid.querySelectorAll('input').forEach(i => i.disabled = true);
-                    checkAnswer(sel.value);
-                }
-            });
+            // submitButton.addEventListener('click', () => {
+            //     const sel = grid.querySelector(`input[name="${question.id}"]:checked`);
+            //     if (sel) {
+            //         questionAnswered = true;
+            //         if (timerEl) timerEl.textContent = '';
+            //         submitButton.disabled = true;
+            //         submitButton.textContent = 'Submitted';
+            //         grid.querySelectorAll('input').forEach(i => i.disabled = true);
+            //         checkAnswer(sel.value);
+            //     }
+            // });
 
             div.appendChild(grid);
-            div.appendChild(submitButton);
+            // div.appendChild(submitButton);
             container.appendChild(div);
         }
 
