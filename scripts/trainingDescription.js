@@ -21,12 +21,12 @@ const QUESTION_DESCRIPTIONS = [
     },
     {
         title: "Question 5 of 6",
-        text: "<b><i>Now</i> outside of 30-70</b>: Find 1 machine that <b><i>is</i> outside of the acceptable range</b> right now.",
+        text: "<b><i>Now</i> outside of 30-70</b>: Find 1 machine that <b>is outside of the acceptable range <i>right now</i></b>.",
         description: "Only the bolded text will be shown. Select a machine where the current output is below 30 or above 70 at any time while the question was answerable. Even if the machine moves to an acceptable range, if it was out of range at any time during the question, the answer is correct."
     },
     {
         title: "Question 6 of 6",
-        text: "<b><i>Ever</i> outside of 30-70</b>: Find 1 machine that <b><i>has been</i> outside of the acceptable range</b> in the visible time range.",
+        text: "<b><i>Ever</i> outside of 30-70</b>: Find 1 machine that <b><i>has ever been</i> outside of the acceptable range</b> in the visible time range.",
         description: "Only the bolded text will be shown. Select a machine where the output at any point is below 30 or above 70 at any time while the question was answerable. Even if the machine moves to an acceptable range or the out-of-range points move out of view, if it was out of range at any time during the question, the answer is correct. If multiple machines have been outside of range, choose one of them."
     },
 ];
