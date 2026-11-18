@@ -54,6 +54,26 @@ async function getAssignmentCounterDoc(){
 
     const assignmentCounterDoc = counterRef.get();
 
+    const valSnap = await db.runTransaction(async (tx) => {
+        const snap = await tx.get(counterRef);
+        const val = snap.exists ? snap.data().value : 0;
+        
+        return [val, snap];
+    
+    })
+
+    //     const snap = await tx.get(counterRef);
+        
+
+    //     const val = snap.exists ? snap.data().value : 0;
+        
+        
+    //     tx.set(counterRef, { value: val + 1 });
+        
+
+    //     return val % 8;
+    // });
+
     
     // const designIndex = await db.runTransaction(async (tx) => {
         
@@ -72,7 +92,7 @@ async function getAssignmentCounterDoc(){
 
     // return designIndex;
 
-    return assignmentCounterDoc;
+    return [assignmentCounterDoc, valSnap];
 }
 
 document.addEventListener('DOMContentLoaded', function () {
