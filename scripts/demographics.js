@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (success) {
                 console.log('Demographics saved');
                 sessionStorage.clear();
-                window.location.href = 'https://app.prolific.com/submissions/complete?cc=CWB5852J';
+                window.location.href = 'https://app.prolific.com/submissions/complete?cc=CW1PQO13';
             } else {
                 console.log('Failed to save demographics');
             }
