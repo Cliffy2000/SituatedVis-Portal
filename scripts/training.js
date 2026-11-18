@@ -4,17 +4,37 @@ for (let d = 0; d < 8; d++) {
 }
 
 async function getAssignment(id) {
+
+    // If statement to send a particular participant by ID to a given test
     if (TEST_IDS[id]) return TEST_IDS[id];
 
+    // Grabbing the user reference from the firestore database under the config collection's assignments document for the
+    // specific user based on id
     const userRef = db.collection('config').doc('assignments').collection('users').doc(id);
+    
+    // Getting the document associated with the user
     const doc = await userRef.get();
+
+    // If a test already exists, provide the user with their previous test instead of generating a new one
     if (doc.exists) return doc.data();
 
+    // Getting counter reference from the firestore database under the config collection's assignment control
+    // Counter reference presumably refers to the number of times each design has been assigned to any participants
     const counterRef = db.collection('config').doc('assignmentCounter');
+
+    
     const designIndex = await db.runTransaction(async (tx) => {
+        
+
         const snap = await tx.get(counterRef);
+        
+
         const val = snap.exists ? snap.data().value : 0;
+        
+        
         tx.set(counterRef, { value: val + 1 });
+        
+
         return val % 8;
     });
 
@@ -27,12 +47,41 @@ async function getAssignment(id) {
     return result;
 }
 
+async function getAssignmentCounterDoc(){
+    // Getting counter reference from the firestore database under the config collection's assignment control
+    // Counter reference presumably refers to the number of times each design has been assigned to any participants
+    const counterRef = db.collection('config').doc('assignmentCounter');
+
+    const assignmentCounterDoc = counterRef.get();
+
+    
+    // const designIndex = await db.runTransaction(async (tx) => {
+        
+
+    //     const snap = await tx.get(counterRef);
+        
+
+    //     const val = snap.exists ? snap.data().value : 0;
+        
+        
+    //     tx.set(counterRef, { value: val + 1 });
+        
+
+    //     return val % 8;
+    // });
+
+    // return designIndex;
+
+    return assignmentCounterDoc;
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('.page1-checkbox');
     const input = document.getElementById('prolific-id');
     const btn = document.getElementById('continueToPage2');
     const qualityRadios = document.querySelectorAll('input[name="quality-commit"]');
 
+    // Session storage is a node.js storage variable
     const saved = sessionStorage.getItem('username');
     if (saved) input.value = saved;
 
@@ -54,6 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             const assignment = await getAssignment(id);
+            const designIndex = await getAssignmentCounterDoc();
+
+            const indexChecker = document.createElement("div");
+            indexChecker.innerHTML = designIndex;
+
+
+            document.getElementsByClassName("articleContent").appendChild(designIndexOutput);
 
             const selectedRadio = document.querySelector('input[name="quality-commit"]:checked');
             sessionStorage.setItem('vis-commitmentQuality', selectedRadio.value);
@@ -62,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
             sessionStorage.setItem('designIndex', String(assignment.design));
             sessionStorage.setItem('trainingPageIndex', 0);
 
-            window.location.href = 'training2.html';
+            // window.location.href = 'training2.html';
         } catch (e) {
             console.error('Assignment failed:', e);
             btn.disabled = false;
