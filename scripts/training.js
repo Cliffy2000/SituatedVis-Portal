@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
             indexChecker.innerHTML = designIndex;
 
 
-            document.getElementsByClassName("articleContent").appendChild(designIndexOutput);
+            document.getElementsByClassName("articleContent").appendChild(indexChecker);
 
             const selectedRadio = document.querySelector('input[name="quality-commit"]:checked');
             sessionStorage.setItem('vis-commitmentQuality', selectedRadio.value);
